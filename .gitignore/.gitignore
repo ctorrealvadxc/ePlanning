@@ -140,3 +140,5 @@ app/Planit.Application/Web/Belcorp.Planit.Web/log.txt20170316
 /app/Planit.Application/Web/Belcorp.Planit.Web/log.txt20170522
 /app/Planit.Application/Web/Belcorp.Planit.Web/log.txt20170523
 *.htm
+
+*.[Ii]de
