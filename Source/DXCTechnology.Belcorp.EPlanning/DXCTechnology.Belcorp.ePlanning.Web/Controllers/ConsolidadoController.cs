@@ -243,7 +243,10 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
             ViewBag.IdCampanaProceso = new SelectList(lstCampanaProceso, "IdCampana", "UsuarioCreacion");
             ViewBag.IdPais = new SelectList(lstPais, "IdPais", "Descripcion");
             ViewBag.IdPalanca = new SelectList(lstPalanca, "IdPalanca", "Descripcion");
-            return View();
+
+
+            var model = new Consolidado();
+            return View("Create", model);
         }
 
         // POST: Consolidado/Create
