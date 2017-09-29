@@ -1,0 +1,79 @@
+﻿@model DXCTechnology.Belcorp.ePlanning.Web.Models.Carga
+
+
+
+@using (Html.BeginForm("AddEmployee", "home", FormMethod.Post, new { @id = "formid", enctype = "multipart/form-data" }))
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Carga de Información</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Palanca, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.Palanca, DXCTechnology.Belcorp.ePlanning.Web.Controllers.HomeController.GetPalanca(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Palanca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CampanaPlaneacion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CampanaPlaneacion, DXCTechnology.Belcorp.ePlanning.Web.Controllers.HomeController.GetCampanaPlaneamiento(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CampanaPlaneacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CampanaProceso, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.CampanaProceso, DXCTechnology.Belcorp.ePlanning.Web.Controllers.HomeController.GetCampanaProceso(), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CampanaProceso, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Espacios, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Espacios, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Espacios, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnidadesLimite, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.UnidadesLimite, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UnidadesLimite, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Archivo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" name="file" /><br />
+                
+                
+                <button type="submit" class="btn btn-default">Procesar Información</button><br /> 
+                
+            </div>
+        </div>
+        @ViewData["Message"]
+    </div>
+}
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<style>
+
+</style>
+
+

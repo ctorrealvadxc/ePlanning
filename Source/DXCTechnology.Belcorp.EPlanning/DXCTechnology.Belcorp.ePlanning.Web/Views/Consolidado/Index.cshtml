@@ -1,0 +1,196 @@
+﻿
+<a href="@Url.Action("Create", "Consolidado")">Añadir </a> |
+<a href="@Url.Action("Exportar", "Consolidado")">Exportar </a>
+<br />
+
+<table id="assets-data-table" class="table table-striped table-bordered" style="width:800px;"></table>
+
+
+
+
+@section Scripts
+{
+
+    <script type="text/javascript">
+        var assetListVM;
+        $(function () {
+            assetListVM = {
+                dt: null,
+
+                init: function () {
+                    dt = $('#assets-data-table').DataTable({
+                        "colReorder": true,
+                        "serverSide": true,
+                        "processing": true,
+                        "ajax": {
+                            "url": "@Url.Action("Get", "Consolidado")",
+                            "data": function (data) {
+                                data.IdConsolidado = $("#IdConsolidado").val();
+                                data.IdCampanaPlaneacion = $("#IdCampanaPlaneacion").val();
+                                data.IdCampanaProceso = $("#IdCampanaProceso").val();
+                                data.IdPalanca = $("#IdPalanca").val();
+                                data.UnidadesLimite = $("#UnidadesLimite").val();
+                                data.NumeroEspacios = $("#NumeroEspacios").val();
+                                data.IdPais = $("#IdPais").val();
+                                data.CuentaOfertas = $("#CuentaOfertas").val();
+                                data.Binomio = $("#Binomio").val();
+                                data.CUVPadre = $("#CUVPadre").val();
+                                data.CUV = $("#CUV").val();
+                                data.CUCAntiguo = $("#CUCAntiguo").val();
+                                data.SAPAntiguo = $("#SAPAntiguo").val();
+                                data.BPCSGenericoAntiguo = $("#BPCSGenericoAntiguo").val();
+                                data.BPCSTonoAntiguo = $("#BPCSTonoAntiguo").val();
+                                data.DescripcionGenericoAntiguo = $("#DescripcionGenericoAntiguo").val();
+                                data.DescripcionTonoAntiguo = $("#DescripcionTonoAntiguo").val();
+                                data.Lanzamiento = $("#Lanzamiento").val();
+                                data.CUC = $("#CUC").val();
+                                data.SAP = $("#SAP").val();
+                                data.BPCSGenerico = $("#BPCSGenerico").val();
+                                data.BPCSTono = $("#BPCSTono").val();
+                                data.IndicadorGratis = $("#IndicadorGratis").val();
+                                data.DescripcionSet = $("#DescripcionSet").val();
+                                data.DescripcionProducto = $("#DescripcionProducto").val();
+                                data.DescripcionCatalogo = $("#DescripcionCatalogo").val();
+                                data.CompuestaVariable = $("#CompuestaVariable").val();
+                                data.NumeroGrupo = $("#NumeroGrupo").val();
+                                data.FactorCuadre = $("#FactorCuadre").val();
+                                data.FlagTop = $("#FlagTop").val();
+                                data.Tono = $("#Tono").val();
+                                data.Marca = $("#Marca").val();
+                                data.Categoria = $("#Categoria").val();
+                                data.Tipo = $("#Tipo").val();
+                                data.DescuentoSet = $("#DescuentoSet").val();
+                                data.ReglaSet = $("#ReglaSet").val();
+                                data.GAPMNvsImpreso = $("#GAPMNvsImpreso").val();
+                                data.GAPUSDvsImpreso = $("#GAPUSDvsImpreso").val();
+                                data.IndicadorCxC = $("#IndicadorCxC").val();
+                                data.FactoRepeticion = $("#FactoRepeticion").val();
+                                data.POUnitarioMN = $("#POUnitarioMN").val();
+                                data.POSetMN = $("#POSetMN").val();
+                                data.PNSetMN = $("#PNSetMN").val();
+                                data.PNUnitarioMN = $("#PNUnitarioMN").val();
+                                data.Unidades = $("#Unidades").val();
+                                data.P1 = $("#P1").val();
+                                data.P2 = $("#P2").val();
+                                data.P3 = $("#P3").val();
+                                data.P4 = $("#P4").val();
+                                data.P5 = $("#P5").val();
+                                data.P6 = $("#P6").val();
+                                data.P7 = $("#P7").val();
+                                data.Comentario = $("#Comentario").val();
+                                data.CODP = $("#CODP").val();
+                                data.NumeroProductosOferta = $("#NumeroProductosOferta").val();
+                                data.TipoPlan = $("#TipoPlan").val();
+                                data.IndicadorSubcampana = $("#IndicadorSubcampana").val();
+                                data.CantidadSAPDiferentes = $("#CantidadSAPDiferentes").val();
+                                data.NumeroRepeticionesSAP = $("#NumeroRepeticionesSAP").val();
+                                data.IdTactica = $("#IdTactica").val();
+                                data.TipoOferta = $("#TipoOferta").val();
+                                data.UsuarioCreacion = $("#UsuarioCreacion").val();
+                                data.FechaCreacion = $("#FechaCreacion").val();
+                                data.UsuarioModificacion = $("#UsuarioModificacion").val();
+                                data.FechaModificacion = $("#FechaModificacion").val();
+                            },
+                            "type": "POST"
+                        },
+                        "columns": [
+
+                            {
+                                "title": "Acciones",
+                                "data": "IdConsolidado",
+                                "searchable": false,
+                                "sortable": false,
+                                "render": function (data, type, full, meta) {
+                                    return '<a href="@Url.Action("Edit", "Consolidado")?id=' + data + '" class="editAsset">Editar</a> | <a href="@Url.Action("Details", "Consolidado")?id=' + data + '" class="detailsAsset">Detalles</a> | <a href="@Url.Action("Delete", "Consolidado")?id=' + data + '" class="deleteAsset">Eliminar</a>';
+                                }
+                            },
+
+
+                            { "title": "IdConsolidado", "data": "IdConsolidado", "searchable": true },
+                            { "title": "IdCampanaPlaneacion", "data": "IdCampanaPlaneacion", "searchable": true },
+                            { "title": "IdCampanaProceso", "data": "IdCampanaProceso", "searchable": true },
+                            { "title": "IdPalanca", "data": "IdPalanca", "searchable": true },
+                            { "title": "UnidadesLimite", "data": "UnidadesLimite", "searchable": true },
+                            { "title": "NumeroEspacios", "data": "NumeroEspacios", "searchable": true },
+                            { "title": "IdPais", "data": "IdPais", "searchable": true },
+                            { "title": "CuentaOfertas", "data": "CuentaOfertas", "searchable": true },
+                            { "title": "Binomio", "data": "Binomio", "searchable": true },
+                            { "title": "CUVPadre", "data": "CUVPadre", "searchable": true },
+                            { "title": "CUV", "data": "CUV", "searchable": true },
+                            { "title": "CUCAntiguo", "data": "CUCAntiguo", "searchable": true },
+                            { "title": "SAPAntiguo", "data": "SAPAntiguo", "searchable": true },
+                            { "title": "BPCSGenericoAntiguo", "data": "BPCSGenericoAntiguo", "searchable": true },
+                            { "title": "BPCSTonoAntiguo", "data": "BPCSTonoAntiguo", "searchable": true },
+                            { "title": "DescripcionGenericoAntiguo", "data": "DescripcionGenericoAntiguo", "searchable": true },
+                            { "title": "DescripcionTonoAntiguo", "data": "DescripcionTonoAntiguo", "searchable": true },
+                            { "title": "Lanzamiento", "data": "Lanzamiento", "searchable": true },
+                            { "title": "CUC", "data": "CUC", "searchable": true },
+                            { "title": "BPCSGenerico", "data": "BPCSGenerico", "searchable": true },
+                            { "title": "BPCSTono", "data": "BPCSTono", "searchable": true },
+                            { "title": "IndicadorGratis", "data": "IndicadorGratis", "searchable": true },
+                            { "title": "DescripcionSet", "data": "DescripcionSet", "searchable": true },
+                            { "title": "DescripcionProducto", "data": "DescripcionProducto", "searchable": true },
+                            { "title": "DescripcionCatalogo", "data": "DescripcionCatalogo", "searchable": true },
+                            { "title": "CompuestaVariable", "data": "CompuestaVariable", "searchable": true },
+                            { "title": "NumeroGrupo", "data": "NumeroGrupo", "searchable": true },
+                            { "title": "FactorCuadre", "data": "FactorCuadre", "searchable": true },
+                            { "title": "FlagTop", "data": "FlagTop", "searchable": true },
+                            { "title": "Tono", "data": "Tono", "searchable": true },
+                            { "title": "Marca", "data": "Marca", "searchable": true },
+                            { "title": "Categoria", "data": "Categoria", "searchable": true },
+                            { "title": "Tipo", "data": "Tipo", "searchable": true },
+                            { "title": "DescuentoSet", "data": "DescuentoSet", "searchable": true },
+                            { "title": "ReglaSet", "data": "ReglaSet", "searchable": true },
+                            { "title": "GAPMNvsImpreso", "data": "GAPMNvsImpreso", "searchable": true },
+                            { "title": "GAPUSDvsImpreso", "data": "GAPUSDvsImpreso", "searchable": true },
+                            { "title": "IndicadorCxC", "data": "IndicadorCxC", "searchable": true },
+                            { "title": "FactoRepeticion", "data": "FactoRepeticion", "searchable": true },
+                            { "title": "POUnitarioMN", "data": "POUnitarioMN", "searchable": true },
+                            { "title": "POSetMN", "data": "POSetMN", "searchable": true },
+                            { "title": "PNSetMN", "data": "PNSetMN", "searchable": true },
+                            { "title": "PNUnitarioMN", "data": "PNUnitarioMN", "searchable": true },
+                            { "title": "Unidades", "data": "Unidades", "searchable": true },
+                            { "title": "P1", "data": "P1", "searchable": true },
+                            { "title": "P2", "data": "P2", "searchable": true },
+                            { "title": "P3", "data": "P3", "searchable": true },
+                            { "title": "P4", "data": "P4", "searchable": true },
+                            { "title": "P5", "data": "P5", "searchable": true },
+                            { "title": "P6", "data": "P6", "searchable": true },
+                            { "title": "P7", "data": "P7", "searchable": true },
+                            { "title": "Comentario", "data": "Comentario", "searchable": true },
+                            { "title": "CODP", "data": "CODP", "searchable": true },
+                            { "title": "NumeroProductosOferta", "data": "NumeroProductosOferta", "searchable": true },
+                            { "title": "TipoPlan", "data": "TipoPlan", "searchable": true },
+                            { "title": "IndicadorSubcampana", "data": "IndicadorSubcampana", "searchable": true },
+                            { "title": "CantidadSAPDiferentes", "data": "CantidadSAPDiferentes", "searchable": true },
+                            { "title": "NumeroRepeticionesSAP", "data": "NumeroRepeticionesSAP", "searchable": true },
+                            //{ "title": "IdTactica", "data": "IdTactica", "searchable": true },
+                            { "title": "TipoOferta", "data": "TipoOferta", "searchable": true },
+                            { "title": "UsuarioCreacion", "data": "UsuarioCreacion", "searchable": true },
+                            //{ "title": "FechaCreacion", "data": "FechaCreacion", "searchable": true },
+                            { "title": "UsuarioModificacion", "data": "UsuarioModificacion", "searchable": true },
+                            { "title": "FechaModificacion", "data": "FechaModificacion", "searchable": true },
+                        ]
+
+                    });
+                  
+                    $.fn.dataTable.ColReorder
+                },
+
+            }
+
+            // initialize the datatables
+            assetListVM.init();
+
+
+
+
+
+
+
+
+        });
+
+    </script>
+
+}

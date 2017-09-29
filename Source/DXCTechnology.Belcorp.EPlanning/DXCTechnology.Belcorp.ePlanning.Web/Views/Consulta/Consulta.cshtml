@@ -1,0 +1,516 @@
+﻿@model IEnumerable<DXCTechnology.Belcorp.ePlanning.EntityLayer.ConsolidadoModel>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Consulta</title>
+    <style type="text/css">
+        /* tables still need 'cellspacing="0"' in the markup */
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+            /* add some styling to the table, padding etc*/
+            table thead th {
+                padding: 3px 10px;
+                border-bottom: 1px solid #000000;
+                background: #CCCCCC;
+                background-size: 50%;
+            }
+
+            table tbody td {
+                padding: 3px 10px;
+                white-space: no
+            }
+
+            table tbody tr:nth-of-type(2n+1) td {
+                background: #7AA6DC;
+            }
+
+        tfoot td {
+            background: #ccc;
+        }
+
+        #three tbody tr:nth-of-type(2n+1) td {
+            background: #82CE76;
+        }
+
+        .drag {
+            background: #CCCCCC !important;
+            color: #cCCCCC;
+        }
+
+        .dragtable-drag-handle {
+            height: .5em;
+            width: 5px;
+            float: right;
+            background: green;
+        }
+
+        .tablewrapper {
+            position: relative;
+            overflow: scroll;
+            width: 400px;
+            margin: 3em;
+        }
+
+            .tablewrapper table {
+                width: 100%;
+            }
+
+        .test3 {
+            /*border-right: 5px solid red !important;*/
+        }
+    </style>
+
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.2.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <script src="~/Scripts/jquery.dragtable.js"></script>
+    <link href="~/Scripts/dragtable-default.css" rel="stylesheet" />
+
+
+
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(document.body).on('dragtablestop', 'table', function (e, ui) {
+                console.log('stop', e, ui)
+            })
+            $('table').each(function () {
+
+                $(this).dragtable({
+                    placeholder: 'dragtable-col-placeholder test3',
+                    items: 'thead th:not( .notdraggable ):not( :has( .dragtable-drag-handle ) ), .dragtable-drag-handle',
+                    scroll: true
+                });
+
+
+            })
+            $('a.order').click(function () {
+
+                console.log($('#one').dragtable('order'));
+                return false;
+            });
+            $('a.setorder').click(function () {
+                $('#one').dragtable('order', ["first_name", "id", "last_name", "phone_number", "salary", "color"])
+            })
+        });
+
+    </script>
+
+    <table class="table">     
+
+        
+        <thead>
+            <tr>
+                <th data-header="id">
+                    @Html.DisplayNameFor(model => model.IdConsolidado)
+                    
+
+                </th>
+                <th data-header="id2">
+                    @Html.DisplayNameFor(model => model.IdCampanaPlaneacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdCampanaProceso)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdPalanca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnidadesLimite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroEspacios)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdPais)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CuentaOfertas)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Binomio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CUVPadre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CUV)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CUCAntiguo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SAPAntiguo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BPCSGenericoAntiguo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BPCSTonoAntiguo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionGenericoAntiguo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionTonoAntiguo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Lanzamiento)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CUC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SAP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BPCSGenerico)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BPCSTono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IndicadorGratis)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionSet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionProducto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescripcionCatalogo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompuestaVariable)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroGrupo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FactorCuadre)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FlagTop)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tono)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdMarca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdCategoria)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Tipo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DescuentoSet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReglaSet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GAPMNvsImpreso)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GAPUSDvsImpreso)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IndicadorCxC)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FactoRepeticion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.POUnitarioMN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.POSetMN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PNSetMN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PNUnitarioMN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Unidades)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P4)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P5)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P6)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.P7)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comentario)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CODP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumeroProductosOferta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TipoPlan)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IndicadorSubcampana)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioCreacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaCreacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UsuarioModificacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FechaModificacion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageIndex)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageSize)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdConsolidado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCampanaPlaneacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCampanaProceso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPalanca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnidadesLimite)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroEspacios)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdPais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CuentaOfertas)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Binomio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CUVPadre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CUV)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CUCAntiguo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SAPAntiguo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BPCSGenericoAntiguo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BPCSTonoAntiguo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionGenericoAntiguo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionTonoAntiguo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Lanzamiento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CUC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SAP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BPCSGenerico)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BPCSTono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IndicadorGratis)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionSet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionProducto)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescripcionCatalogo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompuestaVariable)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroGrupo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FactorCuadre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FlagTop)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdMarca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCategoria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Tipo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescuentoSet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReglaSet)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GAPMNvsImpreso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GAPUSDvsImpreso)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IndicadorCxC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FactoRepeticion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.POUnitarioMN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.POSetMN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PNSetMN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PNUnitarioMN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unidades)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P3)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P4)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P5)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P6)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.P7)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comentario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CODP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroProductosOferta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoPlan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IndicadorSubcampana)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioCreacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsuarioModificacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaModificacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageIndex)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageSize)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        <tbody>
+</table>
+</body>
+</html>

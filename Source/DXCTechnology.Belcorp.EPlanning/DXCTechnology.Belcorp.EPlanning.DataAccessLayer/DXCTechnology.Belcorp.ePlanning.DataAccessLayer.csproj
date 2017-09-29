@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD23B416-691B-4DD0-B486-E000F2D9907E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DXCTechnology.Belcorp.ePlanning.DataAccessLayer</RootNamespace>
+    <AssemblyName>DXCTechnology.Belcorp.ePlanning.DataAccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\Ejemplos\SISGRUP\KM.Site\bin\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAL_Execute.cs" />
+    <Compile Include="DA_Archivo.cs" />
+    <Compile Include="DA_ArchivoLog.cs" />
+    <Compile Include="DA_Campana.cs" />
+    <Compile Include="DA_Consolidado.cs" />
+    <Compile Include="DA_Dominio.cs" />
+    <Compile Include="DA_EstadoArchivo.cs" />
+    <Compile Include="DA_Pais.cs" />
+    <Compile Include="DA_Palanca.cs" />
+    <Compile Include="DA_Parametro.cs" />
+    <Compile Include="DA_ProductoComparableAntiguo.cs" />
+    <Compile Include="DA_TipoOferta.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLHelper.cs" />
+    <Compile Include="_DataRuntimeException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DXCTechnology.Belcorp.EPlanning.EntityLayer\DXCTechnology.Belcorp.ePlanning.EntityLayer.csproj">
+      <Project>{eaabfd0c-af90-4a42-8114-1a3fd8b6594b}</Project>
+      <Name>DXCTechnology.Belcorp.ePlanning.EntityLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DXCTechnology.Belcorp.EPlanning.Utils\DXCTechnology.Belcorp.ePlanning.SharedLibraries.csproj">
+      <Project>{abeaa007-05b7-4721-9f9e-7977dab59a1b}</Project>
+      <Name>DXCTechnology.Belcorp.ePlanning.SharedLibraries</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
