@@ -479,6 +479,7 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
 
             new BL_ArchivoLog().Insert(
                     new ArchivoLogModel(archivoModel.IdArchivo,
+
                     "Se guardo el Consolidado de manera satisfactoria. ["+listConsolidadoModel.Count.ToString()+"] filas cargados.", null, archivoModel.UsuarioCreacion));
 
         }
