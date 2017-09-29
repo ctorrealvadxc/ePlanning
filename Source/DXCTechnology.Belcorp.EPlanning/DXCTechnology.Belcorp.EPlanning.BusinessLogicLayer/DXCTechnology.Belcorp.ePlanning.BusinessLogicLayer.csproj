@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>bin\EPPlus.dll</HintPath>
+      <HintPath>..\..\..\..\Ejemplos\slnGyP\GyP.UI\Bin\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
