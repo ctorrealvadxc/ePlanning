@@ -69,7 +69,7 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
         const int IndexColumn_CODP = 53;
         const int IndexColumn_NumeroProductosOferta = 54;
         const int IndexColumn_TipoPlan = 55;
-        const int IndexColumn_IndicadorSubcampana = 56;
+        const int IndexColumn_IndicadorSubcampana = 666;
 
         #region Methods
 
