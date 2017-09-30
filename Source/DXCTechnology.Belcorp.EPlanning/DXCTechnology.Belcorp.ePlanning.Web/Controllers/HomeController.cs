@@ -125,7 +125,7 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                             DateTime.Now.ToString("yyyyMMdd_HHmm") + extension;
 
                     objArchivo.Insert(Archivo);
-                    ViewBag.Message = "Proceso de carga terminado";
+                   
 
                     if (new BL_Consolidado().ValidateConsolidado(Archivo))
                     {
@@ -139,6 +139,15 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                     }
 
                     System.IO.File.Move(Archivo.NombreCargado, ConfigurationManager.AppSettings.Get("HistoryFolder").ToString() + Archivo.NombreHistorico);
+
+
+
+
+
+
+
+
+                    ViewBag.Message = "Proceso de carga terminado";
                 }
                 else
                 {
@@ -146,8 +155,9 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                 }
                 return View("Carga");
             }
-            catch
+            catch( Exception Ex) 
             {
+                ViewBag.Message = "Error En el Proceso" + Ex.Message;
                 return View("Carga");
             }
         }

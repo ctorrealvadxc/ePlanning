@@ -141,6 +141,49 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
         /// <summary>
         /// Selecciona una registro de la tabla Pais por su primary key.
         /// </summary>
+        //public PaisModel SelectByAbreviatura(string Abreviatura)
+        //{
+        //    SqlParameter[] parameters = null;
+        //    try
+        //    {
+        //        parameters = new SqlParameter[]
+        //        {
+        //            new SqlParameter("@Abreviatura", Abreviatura)
+        //        };
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw controlarExcepcion("Error de asignación de parámetros.", ex);
+        //    }
+
+        //    DataTable dtResult = new DataTable();
+        //    PaisModel objPais = new PaisModel();
+        //    try
+        //    {
+        //        using (dtResult = ejecutarDataTable("usp_g_PaisByAbreviatura", parameters))
+        //        {
+        //            if (dtResult.Rows.Count > 0)
+        //            {
+        //                foreach (DataRow item in dtResult.Rows)
+        //                {
+        //                    objPais = MapDataReader(item);
+        //                }
+        //            }
+        //            else
+        //            {
+        //                return objPais;
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw controlarExcepcion("Error de operación de acceso a datos.", ex);
+        //    }
+        //    return objPais;
+        //}
+
+
+
         public PaisModel SelectByAbreviatura(string Abreviatura)
         {
             SqlParameter[] parameters = null;
@@ -156,30 +199,9 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
                 throw controlarExcepcion("Error de asignación de parámetros.", ex);
             }
 
-            DataTable dtResult = new DataTable();
-            PaisModel objPais = new PaisModel();
-            try
-            {
-                using (dtResult = ejecutarDataTable("usp_g_PaisByAbreviatura", parameters))
-                {
-                    if (dtResult.Rows.Count > 0)
-                    {
-                        foreach (DataRow item in dtResult.Rows)
-                        {
-                            objPais = MapDataReader(item);
-                        }
-                    }
-                    else
-                    {
-                        return objPais;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw controlarExcepcion("Error de operación de acceso a datos.", ex);
-            }
-            return objPais;
+            List<PaisModel> lstPaisModel = new List<PaisModel>();
+            lstPaisModel = GetList<PaisModel>("usp_g_PaisByAbreviatura", parameters);            
+            return lstPaisModel[0];
         }
 
         /// <summary>

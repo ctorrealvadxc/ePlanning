@@ -33,7 +33,7 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
 			}
 
 			try{
-				ejecutarNonQuery("usp_i_ArchivoLog", parameters);
+                ejecutarScalar("usp_i_ArchivoLog", parameters);
 			}
 			catch (Exception ex)
 			{

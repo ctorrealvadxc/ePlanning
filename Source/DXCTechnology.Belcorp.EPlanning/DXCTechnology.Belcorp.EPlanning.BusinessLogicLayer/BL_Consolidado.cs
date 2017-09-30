@@ -9,8 +9,8 @@ using Microsoft.VisualBasic;
 
 namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
 {
-	public class BL_Consolidado
-	{
+    public class BL_Consolidado
+    {
         // IndexColumn campos obligatorios
         const int IndexColumn_CampanaPlaneacion = 1;
         const int IndexColumn_CampanaProceso = 2;
@@ -77,25 +77,25 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
         /// Guarda un registro de la tabla Consolidado.
         /// </summary>
         public void Insert(ConsolidadoModel x_oConsolidadoModel)
-		{
-			 new DA_Consolidado().Insert(x_oConsolidadoModel);
-		}
+        {
+            new DA_Consolidado().Insert(x_oConsolidadoModel);
+        }
 
-		/// <summary>
-		/// Actualiza a registro de la tabla Consolidado.
-		/// </summary>
-		public void Update(ConsolidadoModel x_oConsolidadoModel)
-		{
-			 new DA_Consolidado().Update(x_oConsolidadoModel);
-		}
+        /// <summary>
+        /// Actualiza a registro de la tabla Consolidado.
+        /// </summary>
+        public void Update(ConsolidadoModel x_oConsolidadoModel)
+        {
+            new DA_Consolidado().Update(x_oConsolidadoModel);
+        }
 
-		/// <summary>
-		/// Elimina un registro de la tabla Consolidado por su primary key.
-		/// </summary>
-		public void Delete(long IdConsolidado)
-		{
-			 new DA_Consolidado().Delete(IdConsolidado);
-		}
+        /// <summary>
+        /// Elimina un registro de la tabla Consolidado por su primary key.
+        /// </summary>
+        public void Delete(long IdConsolidado)
+        {
+            new DA_Consolidado().Delete(IdConsolidado);
+        }
 
         /// <summary>
         /// Elimina un registro de la tabla Consolidado por los parametros de su carga.
@@ -109,17 +109,17 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
         /// Selecciona una registro de la tabla Consolidado por su primary key.
         /// </summary>
         public ConsolidadoModel Select(long? IdConsolidado)
-		{
-			return new DA_Consolidado().Select(IdConsolidado);
-		}
+        {
+            return new DA_Consolidado().Select(IdConsolidado);
+        }
 
-		/// <summary>
-		/// Selecciona todos los registro de la tabla Consolidado.
-		/// </summary>
-		public List<ConsolidadoModel> SelectAll(ConsolidadoModel consolidadoModel)
-		{
-			 return new DA_Consolidado().SelectAll(consolidadoModel);
-		}
+        /// <summary>
+        /// Selecciona todos los registro de la tabla Consolidado.
+        /// </summary>
+        public List<ConsolidadoModel> SelectAll(ConsolidadoModel consolidadoModel)
+        {
+            return new DA_Consolidado().SelectAll(consolidadoModel);
+        }
 
         /// <summary>
         /// Selecciona todos los registro de la tabla Consolidado por carga.
@@ -174,7 +174,7 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
                         new ArchivoLogModel(archivoModel.IdArchivo,
                         "El archivo no tiene registros.", null, archivoModel.UsuarioCreacion));
                 return false;
-            }            
+            }
 
             for (int Row = 2; Row <= EndRow; Row++)
             {
@@ -201,11 +201,11 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
                 }
             }
 
-            if (RowCount < EndRow)
+            if (EndRow == 1) //Sólo tiene cabecera
             {
                 new DA_ArchivoLog().Insert(
                         new ArchivoLogModel(archivoModel.IdArchivo,
-                        "El archivo no tiene los campos  registros.", RowCount.ToString(), archivoModel.UsuarioCreacion));
+                        "El archivo no tiene registros.", RowCount.ToString(), archivoModel.UsuarioCreacion));
                 return false;
             }
 
@@ -224,7 +224,7 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
             excelPackage.Load(File.OpenRead(archivoModel.NombreCargado));
             ExcelWorksheet excelWorksheet = excelPackage.Workbook.Worksheets[1];
             int EndRow = excelWorksheet.Dimension.End.Row;
-            List<ConsolidadoModel> listConsolidadoModel=new List<ConsolidadoModel>();
+            List<ConsolidadoModel> listConsolidadoModel = new List<ConsolidadoModel>();
 
             for (int Row = 2; Row <= excelWorksheet.Dimension.End.Row; Row++)
             {
@@ -237,227 +237,107 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
                 consolidadoModel.UnidadesLimite = archivoModel.UnidadesLimite;
                 consolidadoModel.NumeroEspacios = archivoModel.NumeroEspacios;
 
-                PaisModel paisModel = new BL_Pais().SelectByAbreviatura(excelWorksheet.Cells[Row,IndexColumn_Pais].Value.ToString());
+                PaisModel paisModel = new BL_Pais().SelectByAbreviatura(excelWorksheet.Cells[Row, IndexColumn_Pais].Value.ToString());
                 consolidadoModel.IdPais = paisModel.IdPais;
 
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_CuentaOfertas].Value.ToString().Trim()))
+                try
+                {
                     consolidadoModel.CuentaOfertas = Convert.ToInt32(excelWorksheet.Cells[Row, IndexColumn_CuentaOfertas].Value.ToString().Trim());
+                }
+                catch
+                {
+                }
 
-                if (excelWorksheet.Cells[Row, IndexColumn_Binomio].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_Binomio].Value.ToString().Trim() == "1")
-                    consolidadoModel.Binomio = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_Binomio].Value.ToString().Trim());
-                else
+
+
+                try
+                {
+                    consolidadoModel.Binomio = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_Binomio].Value);
+                }
+                catch (Exception)
                 {
                     new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [Binomio]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
+                       new ArchivoLogModel(archivoModel.IdArchivo,
+                       "Error en la columna [Binomio]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
                     IndicadorError = true;
                     break;
                 }
+
+
 
                 consolidadoModel.CUVPadre = excelWorksheet.Cells[Row, IndexColumn_CUVPadre].Value.ToString().Trim();
                 consolidadoModel.CUV = excelWorksheet.Cells[Row, IndexColumn_CUV].Value.ToString().Trim();
 
                 // Productos Antiguos
-                consolidadoModel.CUCAntiguo = excelWorksheet.Cells[Row, IndexColumn_CUCAntiguo].Value.ToString().Trim();
-                consolidadoModel.SAPAntiguo = excelWorksheet.Cells[Row, IndexColumn_SAPAntiguo].Value.ToString().Trim();
-                consolidadoModel.BPCSGenericoAntiguo = excelWorksheet.Cells[Row, IndexColumn_BPCSGenericoAntiguo].Value.ToString().Trim();
-                consolidadoModel.BPCSTonoAntiguo = excelWorksheet.Cells[Row, IndexColumn_BPCSTonoAntiguo].Value.ToString().Trim();
-                consolidadoModel.DescripcionGenericoAntiguo = excelWorksheet.Cells[Row, IndexColumn_DescripcionGenericoAntiguo].Value.ToString().Trim();
-                consolidadoModel.DescripcionTonoAntiguo = excelWorksheet.Cells[Row, IndexColumn_DescripcionTonoAntiguo].Value.ToString().Trim();
 
-                if (excelWorksheet.Cells[Row, IndexColumn_Lanzamiento].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_Lanzamiento].Value.ToString().Trim() == "1")
-                    consolidadoModel.Lanzamiento = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_Lanzamiento].Value.ToString().Trim());
-                else
+                try { consolidadoModel.CUCAntiguo = excelWorksheet.Cells[Row, IndexColumn_CUCAntiguo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.SAPAntiguo = excelWorksheet.Cells[Row, IndexColumn_SAPAntiguo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.BPCSGenericoAntiguo = excelWorksheet.Cells[Row, IndexColumn_BPCSGenericoAntiguo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.BPCSTonoAntiguo = excelWorksheet.Cells[Row, IndexColumn_BPCSTonoAntiguo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.DescripcionGenericoAntiguo = excelWorksheet.Cells[Row, IndexColumn_DescripcionGenericoAntiguo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.DescripcionTonoAntiguo = excelWorksheet.Cells[Row, IndexColumn_DescripcionTonoAntiguo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.Lanzamiento = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_Lanzamiento].Value); } catch { }
+                try { consolidadoModel.CUC = excelWorksheet.Cells[Row, IndexColumn_CUC].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.SAP = excelWorksheet.Cells[Row, IndexColumn_SAP].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.BPCSGenerico = excelWorksheet.Cells[Row, IndexColumn_BPCSGenerico].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.BPCSTono = excelWorksheet.Cells[Row, IndexColumn_BPCSTono].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.IndicadorGratis = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_IndicadorGratis].Value); } catch { }
+                try { consolidadoModel.DescripcionProducto = excelWorksheet.Cells[Row, IndexColumn_DescripcionProducto].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.DescripcionCatalogo = excelWorksheet.Cells[Row, IndexColumn_DescripcionCatalogo].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.CompuestaVariable = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_CompuestaVariable].Value); } catch { }
+                try { consolidadoModel.NumeroGrupo = Convert.ToInt32(excelWorksheet.Cells[Row, IndexColumn_NumeroGrupo].Value.ToString().Trim()); } catch { }
+                try { consolidadoModel.FlagTop = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_FlagTop].Value); } catch { }
+                try { consolidadoModel.Tono = excelWorksheet.Cells[Row, IndexColumn_Tono].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.Marca = excelWorksheet.Cells[Row, IndexColumn_Marca].Value.ToString().Trim(); } catch { }
+
+
+                try { consolidadoModel.Categoria = excelWorksheet.Cells[Row, IndexColumn_Categoria].Value.ToString().Trim(); } catch { }
+
+                try { consolidadoModel.DescripcionSet = excelWorksheet.Cells[Row, IndexColumn_DescripcionSet].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.Tipo = excelWorksheet.Cells[Row, IndexColumn_Tipo].Value.ToString().Trim(); } catch { }
+                try
                 {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [Lanzamiento]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
+                    if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_DescuentoSet].Value.ToString().Trim()))
+                        if (Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_DescuentoSet].Value.ToString().Trim()) <= 100)
+                            consolidadoModel.DescuentoSet = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_DescuentoSet].Value);
                 }
-
-                if (excelWorksheet.Cells[Row, IndexColumn_CUC].Value.ToString().Trim() != "")
-                    consolidadoModel.CUC = excelWorksheet.Cells[Row, IndexColumn_CUC].Value.ToString().Trim();
-                else
+                catch { }
+                try
                 {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [CUC]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
+                    if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_ReglaSet].Value.ToString().Trim()))
+                        if (Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_ReglaSet].Value.ToString().Trim()) <= 100)
+                            consolidadoModel.ReglaSet = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_ReglaSet].Value);
                 }
-
-                if (excelWorksheet.Cells[Row, IndexColumn_SAP].Value.ToString().Trim() != "")
-                    consolidadoModel.SAP = excelWorksheet.Cells[Row, IndexColumn_SAP].Value.ToString().Trim();
-                else
+                catch (Exception)
                 {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [SAP]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
+
                 }
-
-                if (excelWorksheet.Cells[Row, IndexColumn_BPCSGenerico].Value.ToString().Trim() != "")
-                    consolidadoModel.BPCSGenerico = excelWorksheet.Cells[Row, IndexColumn_BPCSGenerico].Value.ToString().Trim();
-                else
-                {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [BPCSGenerico]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
-                }
-
-                if (excelWorksheet.Cells[Row, IndexColumn_BPCSTono].Value.ToString().Trim() != "")
-                    consolidadoModel.BPCSTono = excelWorksheet.Cells[Row, IndexColumn_BPCSTono].Value.ToString().Trim();
-                else
-                {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [BPCSTono]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
-                }
-
-                if (excelWorksheet.Cells[Row, IndexColumn_IndicadorGratis].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_IndicadorGratis].Value.ToString().Trim() == "1")
-                    consolidadoModel.IndicadorGratis = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_IndicadorGratis].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_DescripcionSet].Value.ToString().Trim() != "")
-                    consolidadoModel.DescripcionSet = excelWorksheet.Cells[Row, IndexColumn_DescripcionSet].Value.ToString().Trim();
-                else
-                {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [DescripcionSet]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
-                }
-
-                consolidadoModel.DescripcionProducto = excelWorksheet.Cells[Row, IndexColumn_DescripcionProducto].Value.ToString().Trim();
-                consolidadoModel.DescripcionCatalogo = excelWorksheet.Cells[Row, IndexColumn_DescripcionCatalogo].Value.ToString().Trim();
-
-                if (excelWorksheet.Cells[Row, IndexColumn_CompuestaVariable].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_CompuestaVariable].Value.ToString().Trim() == "1")
-                    consolidadoModel.CompuestaVariable = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_CompuestaVariable].Value.ToString().Trim());
-                else
-                {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [CompuestaVariable]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
-                }
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_NumeroGrupo].Value.ToString().Trim()))
-                    consolidadoModel.NumeroGrupo = Convert.ToInt32(excelWorksheet.Cells[Row, IndexColumn_NumeroGrupo].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_FactorCuadre].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_FactorCuadre].Value.ToString().Trim() == "1")
-                    consolidadoModel.FactorCuadre = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_FactorCuadre].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_FlagTop].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_FlagTop].Value.ToString().Trim() == "1")
-                    consolidadoModel.FlagTop = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_FlagTop].Value.ToString().Trim());
-
-                consolidadoModel.Tono = excelWorksheet.Cells[Row, IndexColumn_Tono].Value.ToString().Trim();
+                try { consolidadoModel.GAPMNvsImpreso = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_GAPMNvsImpreso].Value); } catch { }
+                try { consolidadoModel.GAPUSDvsImpreso = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_GAPUSDvsImpreso].Value); } catch { }
+                try { consolidadoModel.IndicadorCxC = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_IndicadorCxC].Value); } catch { }
+                try { consolidadoModel.FactoRepeticion = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_FactorRepeticion].Value); } catch { }
+                try { consolidadoModel.POUnitarioMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_POUnitarioMN].Value); } catch { }
+                try { consolidadoModel.POSetMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_POSetMN].Value); } catch { }
+                try { consolidadoModel.PNSetMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_PNSetMN].Value); } catch { }
+                try { consolidadoModel.PNUnitarioMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_PNUnitarioMN].Value.ToString().Trim()); } catch { }
+                try { consolidadoModel.Unidades = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_Unidades].Value.ToString().Trim()); } catch { }
+                try { consolidadoModel.P1 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P1].Value); } catch { }
+                try { consolidadoModel.P2 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P2].Value); } catch { }
+                try { consolidadoModel.P3 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P3].Value); } catch { }
+                try { consolidadoModel.P4 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P4].Value); } catch { }
+                try { consolidadoModel.P5 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P5].Value); } catch { }
+                try { consolidadoModel.P6 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P6].Value); } catch { }
+                try { consolidadoModel.P7 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P7].Value); } catch { }
+                try { consolidadoModel.Comentario = excelWorksheet.Cells[Row, IndexColumn_Comentario].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.CODP = excelWorksheet.Cells[Row, IndexColumn_CODP].Value.ToString().Trim(); } catch { }
+                try { consolidadoModel.NumeroProductosOferta = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_NumeroProductosOferta].Value); } catch { }
+                try { consolidadoModel.IndicadorSubcampana = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_IndicadorSubcampana].Value); } catch { }
+                try { consolidadoModel.TipoPlan = excelWorksheet.Cells[Row, IndexColumn_TipoPlan].Value.ToString().Trim(); } catch { }
 
 
-                consolidadoModel.Marca = excelWorksheet.Cells[Row, IndexColumn_Marca].Value.ToString().Trim();
-                if (excelWorksheet.Cells[Row, IndexColumn_Categoria].Value.ToString().Trim() != "")
-                    consolidadoModel.DescripcionSet = excelWorksheet.Cells[Row, IndexColumn_Categoria].Value.ToString().Trim();
-                else
-                {
-                    new BL_ArchivoLog().Insert(
-                            new ArchivoLogModel(archivoModel.IdArchivo,
-                            "Error en la columna [Categoria]. Valor inválido.", Row.ToString(), archivoModel.UsuarioCreacion));
-                    IndicadorError = true;
-                    break;
-                }
-
-                consolidadoModel.Tipo = excelWorksheet.Cells[Row, IndexColumn_Tipo].Value.ToString().Trim();
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_DescuentoSet].Value.ToString().Trim()))
-                    if (Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_DescuentoSet].Value.ToString().Trim()) <= 100)
-                        consolidadoModel.DescuentoSet = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_DescuentoSet].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_ReglaSet].Value.ToString().Trim()))
-                    if (Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_ReglaSet].Value.ToString().Trim()) <= 100)
-                        consolidadoModel.ReglaSet = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_ReglaSet].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_GAPMNvsImpreso].Value.ToString().Trim()))
-                    consolidadoModel.GAPMNvsImpreso = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_GAPMNvsImpreso].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_GAPUSDvsImpreso].Value.ToString().Trim()))
-                    consolidadoModel.GAPUSDvsImpreso = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_GAPUSDvsImpreso].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_IndicadorCxC].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_IndicadorCxC].Value.ToString().Trim() == "1")
-                    consolidadoModel.IndicadorCxC = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_IndicadorCxC].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_FactorRepeticion].Value.ToString().Trim()))
-                    consolidadoModel.FactoRepeticion = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_FactorRepeticion].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_POUnitarioMN].Value.ToString().Trim()))
-                    consolidadoModel.POUnitarioMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_POUnitarioMN].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_POSetMN].Value.ToString().Trim()))
-                    consolidadoModel.POSetMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_POSetMN].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_PNSetMN].Value.ToString().Trim()))
-                    consolidadoModel.PNSetMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_PNSetMN].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_PNUnitarioMN].Value.ToString().Trim()))
-                    consolidadoModel.PNUnitarioMN = Convert.ToDecimal(excelWorksheet.Cells[Row, IndexColumn_PNUnitarioMN].Value.ToString().Trim());
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_Unidades].Value.ToString().Trim()))
-                    consolidadoModel.Unidades = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_Unidades].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P1].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P1].Value.ToString().Trim() == "1")
-                    consolidadoModel.P1 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P1].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P2].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P2].Value.ToString().Trim() == "1")
-                    consolidadoModel.P2 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P2].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P3].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P3].Value.ToString().Trim() == "1")
-                    consolidadoModel.P3 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P3].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P4].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P4].Value.ToString().Trim() == "1")
-                    consolidadoModel.P4 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P4].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P5].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P5].Value.ToString().Trim() == "1")
-                    consolidadoModel.P5 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P5].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P6].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P6].Value.ToString().Trim() == "1")
-                    consolidadoModel.P6 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P6].Value.ToString().Trim());
-
-                if (excelWorksheet.Cells[Row, IndexColumn_P7].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_P7].Value.ToString().Trim() == "1")
-                    consolidadoModel.P7 = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_P7].Value.ToString().Trim());
-
-                consolidadoModel.Comentario = excelWorksheet.Cells[Row, IndexColumn_Comentario].Value.ToString().Trim();
-                consolidadoModel.CODP = excelWorksheet.Cells[Row, IndexColumn_CODP].Value.ToString().Trim();
-
-                if (Information.IsNumeric(excelWorksheet.Cells[Row, IndexColumn_NumeroProductosOferta].Value.ToString().Trim()))
-                    consolidadoModel.NumeroProductosOferta = Convert.ToInt64(excelWorksheet.Cells[Row, IndexColumn_NumeroProductosOferta].Value.ToString().Trim());
-
-                consolidadoModel.TipoPlan = excelWorksheet.Cells[Row, IndexColumn_TipoPlan].Value.ToString().Trim();
-
-                if (excelWorksheet.Cells[Row, IndexColumn_IndicadorSubcampana].Value.ToString().Trim() == "0" ||
-                        excelWorksheet.Cells[Row, IndexColumn_IndicadorSubcampana].Value.ToString().Trim() == "1")
-                    consolidadoModel.IndicadorSubcampana = Convert.ToBoolean(excelWorksheet.Cells[Row, IndexColumn_IndicadorSubcampana].Value.ToString().Trim());
+                consolidadoModel.UsuarioCreacion = archivoModel.UsuarioCreacion;
 
                 listConsolidadoModel.Add(consolidadoModel);
-
             }
 
             if (IndicadorError)
@@ -480,7 +360,7 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
             new BL_ArchivoLog().Insert(
                     new ArchivoLogModel(archivoModel.IdArchivo,
 
-                    "Se guardo el Consolidado de manera satisfactoria. ["+listConsolidadoModel.Count.ToString()+"] filas cargados.", null, archivoModel.UsuarioCreacion));
+                    "Se guardo el Consolidado de manera satisfactoria. [" + listConsolidadoModel.Count.ToString() + "] filas cargados.", null, archivoModel.UsuarioCreacion));
 
         }
 
