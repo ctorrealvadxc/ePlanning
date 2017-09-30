@@ -211,6 +211,39 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
 		}
 
         /// <summary>
+        /// Realiza el proceso de Proceso de variables
+        /// </summary>
+        public void ProcessVariables(ArchivoModel archivoModel)
+        {
+            SqlParameter[] parameters = null;
+            try
+            {
+                parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@IdPalanca", archivoModel.IdPalanca),
+                    new SqlParameter("@IdCampanaPlaneacion", archivoModel.IdCampanaPlaneacion),
+                    new SqlParameter("@IdCampanaProceso", archivoModel.IdCampanaProceso),
+                    new SqlParameter("@NumeroEspacios", archivoModel.NumeroEspacios),
+                    new SqlParameter("@UnidadesLimite", archivoModel.UnidadesLimite),
+                    new SqlParameter("@UsuarioModificacion", archivoModel.UsuarioCreacion)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw controlarExcepcion("Error de asignación de parámetros.", ex);
+            }
+
+            try
+            {
+                ejecutarNonQuery("usp_p_CalculoConsolidado", parameters);
+            }
+            catch (Exception ex)
+            {
+                throw controlarExcepcion("Error de operación de acceso a datos.", ex);
+            }
+        }
+
+        /// <summary>
         /// Elimina un registro de la tabla Consolidado por su primary key.
         /// </summary>
         public void DeleteByParameters(ArchivoModel archivoModel)
