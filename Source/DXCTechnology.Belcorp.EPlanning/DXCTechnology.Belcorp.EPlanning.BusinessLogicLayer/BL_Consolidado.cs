@@ -80,7 +80,14 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
         {
             new DA_Consolidado().Insert(x_oConsolidadoModel);
         }
-
+        /// <summary>
+        /// Procesa las variables del Consolidado.
+        /// </summary>
+        public void ProcessVariables(ArchivoModel x_oArchivoModel)
+        {
+            new DA_Consolidado().ProcessVariables(x_oArchivoModel);
+        }
+        
         /// <summary>
         /// Actualiza a registro de la tabla Consolidado.
         /// </summary>

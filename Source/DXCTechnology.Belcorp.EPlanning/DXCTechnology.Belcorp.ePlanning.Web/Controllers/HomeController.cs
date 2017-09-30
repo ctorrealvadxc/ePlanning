@@ -131,6 +131,7 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                     {
                         ViewBag.Message = "Archivo validado satisfactoriamente. Calculando...";
                         new BL_Consolidado().CalculateConsolidado(Archivo);
+                        new BL_Consolidado().ProcessVariables(Archivo);
                         ViewBag.Message = "Finalizo el calculo del Consolidado";
                     }
                     else
@@ -139,13 +140,6 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                     }
 
                     System.IO.File.Move(Archivo.NombreCargado, ConfigurationManager.AppSettings.Get("HistoryFolder").ToString() + Archivo.NombreHistorico);
-
-
-
-
-
-
-
 
                     ViewBag.Message = "Proceso de carga terminado";
                 }
