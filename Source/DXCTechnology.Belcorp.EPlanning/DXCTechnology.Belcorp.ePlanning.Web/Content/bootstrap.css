@@ -4502,7 +4502,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 
 .navbar-inverse {
     background-color: #812990;
-    border-color: #812990;
+    border-color: #080808;
 }
 
     .navbar-inverse .navbar-brand {
@@ -4519,9 +4519,9 @@ textarea.input-group-sm > .input-group-btn > .btn {
   color: #999999;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-  color: white;
-}
+    .navbar-inverse .navbar-nav > li > a {
+        color: white;
+    }
 
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -5457,22 +5457,22 @@ a.list-group-item:focus {
 }
 
 .panel-primary {
-  border-color: #428bca;
+    border-color: #e1e1e1;
 }
 
-.panel-primary > .panel-heading {
-  color: #ffffff;
-  background-color: #428bca;
-  border-color: #428bca;
-}
+    .panel-primary > .panel-heading {
+        color: #ffffff;
+        background-color: #e1e1e1;
+        border-color: #e1e1e1;
+    }
 
-.panel-primary > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #428bca;
-}
+        .panel-primary > .panel-heading + .panel-collapse .panel-body {
+            border-top-color: #e1e1e1;
+        }
 
-.panel-primary > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #428bca;
-}
+    .panel-primary > .panel-footer + .panel-collapse .panel-body {
+        border-bottom-color: #e1e1e1;
+    }
 
 .panel-success {
   border-color: #d6e9c6;

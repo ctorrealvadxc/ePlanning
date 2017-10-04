@@ -71,7 +71,7 @@
       <Project>{eaabfd0c-af90-4a42-8114-1a3fd8b6594b}</Project>
       <Name>DXCTechnology.Belcorp.ePlanning.EntityLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DXCTechnology.Belcorp.EPlanning.Utils\DXCTechnology.Belcorp.ePlanning.SharedLibraries.csproj">
+    <ProjectReference Include="..\DXCTechnology.Belcorp.EPlanning.SharedLibraries\DXCTechnology.Belcorp.ePlanning.SharedLibraries.csproj">
       <Project>{abeaa007-05b7-4721-9f9e-7977dab59a1b}</Project>
       <Name>DXCTechnology.Belcorp.ePlanning.SharedLibraries</Name>
     </ProjectReference>

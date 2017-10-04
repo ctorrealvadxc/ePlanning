@@ -4,13 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using DXCTechnology.Belcorp.ePlanning.Web.Models;
+using System.Configuration;
 using DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer;
 using DXCTechnology.Belcorp.ePlanning.EntityLayer;
-using DXCTechnology.Belcorp.ePlanning.SharedLibreries;
-using System.Configuration;
+using DXCTechnology.Belcorp.ePlanning.Models;
+using DXCTechnology.Belcorp.ePlanning.SharedLibraries;
 
-namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
+namespace DXCTechnology.Belcorp.ePlanning.Controllers
 {
     public class HomeController : Controller
     {
@@ -18,46 +18,49 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Consolidado()
+        {
+            ViewBag.Message = "Consolidado.";
+
+            return View();
+        }
+
         public ActionResult Carga()
         {
-            return View();
-        }
-        
-        public ActionResult Edicion()
-        {
-            ViewBag.Message = "Página de edición.";
-            return View();
-        }
+            Carga carga = new Models.Carga();
+            carga.UnidadesLimite = 99;
 
 
-        public ActionResult Test()
-        {
-            ViewBag.Message = "Página de TEST.";
-            BL_Archivo objArchivo = new BL_Archivo();
-            ArchivoModel Archivo = new ArchivoModel();
-            Archivo.PageIndex = 1;
-            Archivo.PageSize = 1000;
-            ModelState.Clear();
-            return View(objArchivo.SelectAll(Archivo));   
+            return View(carga);
         }
 
-        public ActionResult Test3()
-        {
-            ViewBag.Message = "Página de WebPage1.";
-            return View();
-        }
 
         public static List<SelectListItem> GetPalanca()
         {
             List<SelectListItem> items = new List<SelectListItem>();
             BL_Palanca objPalanca = new BL_Palanca();
             PalancaModel Palanca = new PalancaModel();
-            Palanca.PageSize = 20;
+            Palanca.PageSize = 100;
             Palanca.PageIndex = 1;
             List<PalancaModel> lstPalanca = objPalanca.SelectAll(Palanca);
             foreach (var temp in lstPalanca)
             {
-                items.Add(new SelectListItem() { Text = temp.Descripcion, Value = temp.IdPalanca.ToString() });
+                items.Add(new SelectListItem() { Text = temp.Abreviatura, Value = temp.IdPalanca.ToString() });
             }
             return items;
         }
@@ -66,7 +69,7 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
             List<SelectListItem> items = new List<SelectListItem>();
             BL_Campana objCampana = new BL_Campana();
             CampanaModel Campana = new CampanaModel();
-            Campana.PageSize = 20;
+            Campana.PageSize = 100;
             Campana.PageIndex = 1;
             List<CampanaModel> lstCampana = objCampana.SelectAll(Campana);
             foreach (var temp in lstCampana)
@@ -80,7 +83,7 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
             List<SelectListItem> items = new List<SelectListItem>();
             BL_Campana objCampana = new BL_Campana();
             CampanaModel Campana = new CampanaModel();
-            Campana.PageSize = 20;
+            Campana.PageSize = 100;
             Campana.PageIndex = 1;
             List<CampanaModel> lstCampana = objCampana.SelectAll(Campana);
             foreach (var temp in lstCampana)
@@ -95,15 +98,17 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
         [HttpPost]
         public ActionResult AddEmployee(HttpPostedFileBase file, Carga Emp)
         {
+            string Mensaje = string.Empty;
             try
             {
                 string NombreCargado = string.Empty;
                 string NombreHistorico = string.Empty;
                 if (file != null)
                 {
-                    NombreCargado = Server.MapPath(ConfigurationManager.AppSettings.Get("ProcessFolder").ToString()) + "\\" + Path.GetFileName(file.FileName);
+                    NombreCargado = Server.MapPath(ConfigurationManager.AppSettings.Get("ProcessFolder").ToString()) + "\\" + DateTime.Now.Ticks + "_" +Path.GetFileName(file.FileName);
 
                     file.SaveAs(NombreCargado);
+                    Mensaje = Mensaje + "Proceso de Copia al Servidor: Terminado. <br />";
 
                     BL_Archivo objArchivo = new BL_Archivo();
                     ArchivoModel Archivo = new ArchivoModel
@@ -117,7 +122,9 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                         UnidadesLimite = Convert.ToByte(Emp.UnidadesLimite),
                         IdEstado = Estados.ArchivoCargado,
                         UsuarioCreacion = ""
+
                     };
+                    
 
                     String extension = System.IO.Path.GetExtension(Archivo.NombreCargado);
                     Archivo.NombreHistorico = Archivo.IdCampanaPlaneacion.ToString() + "_" +
@@ -125,23 +132,43 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                             DateTime.Now.ToString("yyyyMMdd_HHmm") + extension;
 
                     objArchivo.Insert(Archivo);
-                   
+                    Mensaje = Mensaje + "Proceso de Versionamiento al Servidor: Terminado. <br />";
 
-                    if (new BL_Consolidado().ValidateConsolidado(Archivo))
+                    string MensajeCarga = new BL_Consolidado().ValidateConsolidado(Archivo);
+                    if (MensajeCarga == "")
                     {
-                        ViewBag.Message = "Archivo validado satisfactoriamente. Calculando...";
-                        new BL_Consolidado().CalculateConsolidado(Archivo);
-                        new BL_Consolidado().ProcessVariables(Archivo);
-                        ViewBag.Message = "Finalizo el calculo del Consolidado";
+                        Mensaje = Mensaje + "Proceso de Validación: Terminado. <br />";
+                        try
+                        {
+                            new BL_Consolidado().Carga(Archivo);                            
+                            Mensaje = Mensaje + "Proceso de Carga: Terminado. <br />";
+                            try
+                            {
+                                new BL_Consolidado().ProcessVariables(Archivo);
+                            }
+                            catch (Exception ex)
+                            {
+                                Mensaje = Mensaje + "Proceso de Cálculo: Error. " + ex.Message + "<br />";
+                            }
+                        }
+                        catch (Exception ex )
+                        {
+                            Mensaje = Mensaje + "Proceso de Carga: Error. " + ex.Message + "<br />";
+                        }
+                        
                     }
                     else
                     {
-                        ViewBag.Message = "Archivo cargado no es válido.";
+                        Mensaje = Mensaje + "Proceso de Validación: "  + MensajeCarga;
                     }
 
-                    System.IO.File.Move(Archivo.NombreCargado, ConfigurationManager.AppSettings.Get("HistoryFolder").ToString() + Archivo.NombreHistorico);
+                    //System.IO.File.Move(Archivo.NombreCargado, ConfigurationManager.AppSettings.Get("HistoryFolder").ToString() + Archivo.NombreHistorico);
 
-                    ViewBag.Message = "Proceso de carga terminado";
+                    ViewBag.Message = Mensaje;
+
+                    
+
+
                 }
                 else
                 {
@@ -149,11 +176,30 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Controllers
                 }
                 return View("Carga");
             }
-            catch( Exception Ex) 
+            catch (Exception Ex)
             {
                 ViewBag.Message = "Error En el Proceso" + Ex.Message;
                 return View("Carga");
             }
+        }
+
+
+        //Metodo para obtener especificamente 1 Country by Id valor retornado como Json
+        public JsonResult GetCampanaProceso(int CampanaPlaneacion)
+        {
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            BL_Campana objCampana = new BL_Campana();
+            CampanaModel Campana = new CampanaModel();
+            Campana.IdCampana = CampanaPlaneacion;
+            Campana.PageSize = 100;
+            Campana.PageIndex = 1;
+            List<CampanaModel> lstCampana = objCampana.SelectProceso(Campana);
+            foreach (var temp in lstCampana)
+            {
+                items.Add(new SelectListItem() { Text = temp.IdCampana.ToString(), Value = temp.IdCampana.ToString() });
+            }
+            return Json(new SelectList(items, "IdCampana", "IdCampana"));
         }
     }
 }

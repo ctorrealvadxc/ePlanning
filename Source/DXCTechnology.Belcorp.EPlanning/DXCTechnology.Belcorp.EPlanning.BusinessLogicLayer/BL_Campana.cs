@@ -49,7 +49,12 @@ namespace DXCTechnology.Belcorp.ePlanning.BusinessLogicLayer
 			 return new DA_Campana().SelectAll(campanaModel);
 		}
 
+        public List<CampanaModel> SelectProceso(CampanaModel campanaModel)
+        {
+            return new DA_Campana().SelectProceso(campanaModel);
+        }
+        
 
-		#endregion
-	}
+        #endregion
+    }
 }

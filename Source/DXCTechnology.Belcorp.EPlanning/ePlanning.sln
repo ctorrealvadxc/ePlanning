@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXCTechnology.Belcorp.ePlanning.DataAccessLayer", "DXCTechnology.Belcorp.EPlanning.DataAccessLayer\DXCTechnology.Belcorp.ePlanning.DataAccessLayer.csproj", "{CD23B416-691B-4DD0-B486-E000F2D9907E}"
 EndProject
@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXCTechnology.Belcorp.ePlan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXCTechnology.Belcorp.ePlanning.EntityLayer", "DXCTechnology.Belcorp.EPlanning.EntityLayer\DXCTechnology.Belcorp.ePlanning.EntityLayer.csproj", "{EAABFD0C-AF90-4A42-8114-1A3FD8B6594B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXCTechnology.Belcorp.ePlanning.SharedLibraries", "DXCTechnology.Belcorp.EPlanning.Utils\DXCTechnology.Belcorp.ePlanning.SharedLibraries.csproj", "{ABEAA007-05B7-4721-9F9E-7977DAB59A1B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXCTechnology.Belcorp.ePlanning.SharedLibraries", "DXCTechnology.Belcorp.EPlanning.SharedLibraries\DXCTechnology.Belcorp.ePlanning.SharedLibraries.csproj", "{ABEAA007-05B7-4721-9F9E-7977DAB59A1B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DXCTechnology.Belcorp.ePlanning.Web", "DXCTechnology.Belcorp.ePlanning.Web\DXCTechnology.Belcorp.ePlanning.Web.csproj", "{F0A0E949-AA44-4263-82EB-3315FFE62FB0}"
 EndProject

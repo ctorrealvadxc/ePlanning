@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using log4net;
 using Microsoft.ApplicationBlocks.Data;
 using DXCTechnology.Belcorp.ePlanning.EntityLayer;
 
@@ -156,10 +155,33 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
             return GetList<CampanaModel>("usp_gl_Campana", parameters);
 		}
 
-		/// <summary>
-		/// Creates a new instance of the CampanaModel class and populates it with data from the specified SqlDataReader.
+        /// <summary>
+		/// Selecciona todos los registro de la tabla Campana.
 		/// </summary>
-		private CampanaModel MapDataReader(DataRow x_dr)
+		public List<CampanaModel> SelectProceso(CampanaModel campanaModel)
+        {
+
+            SqlParameter[] parameters = null;
+            try
+            {
+                parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@pii_IdCampanaPlaneacion", campanaModel.IdCampana),
+                    new SqlParameter("@pii_PageIndex", campanaModel.PageIndex),
+                    new SqlParameter("@pii_PageSize", campanaModel.PageSize)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw controlarExcepcion("Error de asignación de parámetros.", ex);
+            }
+            return GetList<CampanaModel>("usp_gl_CampanaProceso", parameters);
+        }
+
+        /// <summary>
+        /// Creates a new instance of the CampanaModel class and populates it with data from the specified SqlDataReader.
+        /// </summary>
+        private CampanaModel MapDataReader(DataRow x_dr)
 		{
 
 			CampanaModel x_oCampanaModel = new CampanaModel();

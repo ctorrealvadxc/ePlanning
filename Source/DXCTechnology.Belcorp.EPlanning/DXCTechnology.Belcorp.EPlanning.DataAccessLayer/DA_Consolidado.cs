@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using log4net;
 using Microsoft.ApplicationBlocks.Data;
 using DXCTechnology.Belcorp.ePlanning.EntityLayer;
 
@@ -246,18 +245,16 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
         /// <summary>
         /// Elimina un registro de la tabla Consolidado por su primary key.
         /// </summary>
-        public void DeleteByParameters(ArchivoModel archivoModel)
+        public void DeleteByParameters(ConsolidadoModel consolidadoModel)
         {
             SqlParameter[] parameters = null;
             try
             {
                 parameters = new SqlParameter[]
                 {
-                    new SqlParameter("@IdCampanaPlaneacion", archivoModel.IdCampanaPlaneacion),
-                    new SqlParameter("@IdCampanaProceso", archivoModel.IdCampanaProceso),
-                    new SqlParameter("@IdPalanca", archivoModel.IdPalanca),
-                    new SqlParameter("@UnidadesLimite", archivoModel.UnidadesLimite),
-                    new SqlParameter("@NumeroEspacios", archivoModel.NumeroEspacios)
+                    new SqlParameter("@IdCampanaPlaneacion", consolidadoModel.IdCampanaPlaneacion),
+                    new SqlParameter("@IdPalanca", consolidadoModel.IdPalanca),
+                    new SqlParameter("@IdPais", consolidadoModel.IdPais)
                 };
             }
             catch (Exception ex)
@@ -268,6 +265,38 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
             try
             {
                 ejecutarNonQuery("usp_d_ConsolidadoByParameters", parameters);
+            }
+            catch (Exception ex)
+            {
+                throw controlarExcepcion("Error de operación de acceso a datos.", ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Elimina una oferta de la tabla Consolidado por su business key.
+        /// </summary>
+        public void DeleteByBusinessKey(ConsolidadoModel consolidadoModel)
+        {
+            SqlParameter[] parameters = null;
+            try
+            {
+                parameters = new SqlParameter[]
+                {
+                    new SqlParameter("@IdCampanaPlaneacion", consolidadoModel.IdCampanaPlaneacion),
+                    new SqlParameter("@IdPalanca", consolidadoModel.IdPalanca),
+                    new SqlParameter("@IdPais", consolidadoModel.IdPais),
+                    new SqlParameter("@CuentaOfertas", consolidadoModel.CuentaOfertas)
+                };
+            }
+            catch (Exception ex)
+            {
+                throw controlarExcepcion("Error de asignación de parámetros.", ex);
+            }
+
+            try
+            {
+                ejecutarNonQuery("usp_d_ConsolidadoByBusinessKey", parameters);
             }
             catch (Exception ex)
             {

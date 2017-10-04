@@ -6,12 +6,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DXCTechnology.Belcorp.ePlanning.Web.Models
+namespace DXCTechnology.Belcorp.ePlanning.Models
 {
     public class Carga
     {
+        public Carga()
+        {
+            this.ListaCampanaPlaneacion = new SelectList(new List<string>());
+            this.ListaCampanaProceso = new SelectList(new List<string>() { "Sin datos" });
+        }
+
+        public SelectList ListaCampanaPlaneacion { get; set; }
+        public SelectList ListaCampanaProceso { get; set; }
+
+
+
         [Required(ErrorMessage = "Seleccione Palanca.")]
-        [DisplayName("Palanca")] 
+        [DisplayName("Palanca")]
         public Int16 Palanca { get; set; }
         public List<SelectListItem> PalancaListItems { get; set; }
 
@@ -25,19 +36,29 @@ namespace DXCTechnology.Belcorp.ePlanning.Web.Models
         public int CampanaProceso { get; set; }
         public List<SelectListItem> CampanaProListItems { get; set; }
 
+
         [Required(ErrorMessage = "Ingrese Valor.")]
         [Range(1, 25)]
         [DisplayName("Número de Espacios")]
-        public Int16 Espacios { get; set; }
+        public string Espacios { get; set; }
 
         [DisplayName("Unidades Límite")]
         [Required(ErrorMessage = "Ingrese Valor.")]
         [Range(0, 99)]
-        public Int16 UnidadesLimite { get; set; }
+        [DefaultValue(true)]
+        public Int16 UnidadesLimite { get; set; } 
 
         [Required(ErrorMessage = "Seleccione Archivo.")]
         [DisplayName("Archivo")]
         public string Archivo { get; set; }
+
+
+
+        
+
+
+
+
 
     }
 }

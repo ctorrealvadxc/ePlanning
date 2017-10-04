@@ -1,0 +1,1294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ePlanningDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Archivo">
+          <Key>
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreCargado" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="NombreHistorico" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IdPalanca" Type="smallint" Nullable="false" />
+          <Property Name="IdCampanaPlaneacion" Type="int" Nullable="false" />
+          <Property Name="IdCampanaProceso" Type="int" Nullable="false" />
+          <Property Name="NumeroEspacios" Type="tinyint" />
+          <Property Name="UnidadesLimite" Type="tinyint" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="FechaEstado" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ArchivoLog">
+          <Key>
+            <PropertyRef Name="IdArchivoLog" />
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivoLog" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdArchivo" Type="bigint" Nullable="false" />
+          <Property Name="Observacion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Linea" Type="nchar" MaxLength="10" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Campana">
+          <Key>
+            <PropertyRef Name="IdCampana" />
+          </Key>
+          <Property Name="IdCampana" Type="int" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Abreviatura" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Consolidado">
+          <Key>
+            <PropertyRef Name="IdConsolidado" />
+          </Key>
+          <Property Name="IdConsolidado" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCampanaPlaneacion" Type="int" Nullable="false" />
+          <Property Name="IdCampanaProceso" Type="int" Nullable="false" />
+          <Property Name="IdPalanca" Type="smallint" Nullable="false" />
+          <Property Name="UnidadesLimite" Type="tinyint" />
+          <Property Name="NumeroEspacios" Type="tinyint" />
+          <Property Name="IdPais" Type="tinyint" Nullable="false" />
+          <Property Name="CuentaOfertas" Type="int" Nullable="false" />
+          <Property Name="Binomio" Type="bit" />
+          <Property Name="CUVPadre" Type="varchar" MaxLength="10" />
+          <Property Name="CUV" Type="varchar" MaxLength="10" />
+          <Property Name="CUCAntiguo" Type="varchar" MaxLength="15" />
+          <Property Name="SAPAntiguo" Type="varchar" MaxLength="9" />
+          <Property Name="BPCSGenericoAntiguo" Type="varchar" MaxLength="9" />
+          <Property Name="BPCSTonoAntiguo" Type="varchar" MaxLength="9" />
+          <Property Name="DescripcionGenericoAntiguo" Type="varchar" MaxLength="500" />
+          <Property Name="DescripcionTonoAntiguo" Type="varchar" MaxLength="500" />
+          <Property Name="Lanzamiento" Type="bit" />
+          <Property Name="CUC" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SAP" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="BPCSGenerico" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="BPCSTono" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="IndicadorGratis" Type="bit" />
+          <Property Name="DescripcionSet" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DescripcionProducto" Type="varchar" MaxLength="500" />
+          <Property Name="DescripcionCatalogo" Type="varchar" MaxLength="500" />
+          <Property Name="CompuestaVariable" Type="bit" />
+          <Property Name="NumeroGrupo" Type="bigint" />
+          <Property Name="FactorCuadre" Type="bit" />
+          <Property Name="FlagTop" Type="bit" />
+          <Property Name="Tono" Type="varchar" MaxLength="500" />
+          <Property Name="Marca" Type="varchar" MaxLength="20" />
+          <Property Name="Categoria" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="500" />
+          <Property Name="DescuentoSet" Type="decimal" Precision="8" Scale="5" />
+          <Property Name="ReglaSet" Type="decimal" Precision="8" Scale="5" />
+          <Property Name="GAPMNvsImpreso" Type="bigint" />
+          <Property Name="GAPUSDvsImpreso" Type="bigint" />
+          <Property Name="IndicadorCxC" Type="bit" />
+          <Property Name="FactoRepeticion" Type="bigint" />
+          <Property Name="POUnitarioMN" Type="decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="POSetMN" Type="decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="PNSetMN" Type="decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="PNUnitarioMN" Type="decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="Unidades" Type="bigint" />
+          <Property Name="P1" Type="bit" />
+          <Property Name="P2" Type="bit" />
+          <Property Name="P3" Type="bit" />
+          <Property Name="P4" Type="bit" />
+          <Property Name="P5" Type="bit" />
+          <Property Name="P6" Type="bit" />
+          <Property Name="P7" Type="bit" />
+          <Property Name="Comentario" Type="varchar" MaxLength="500" />
+          <Property Name="CODP" Type="varchar" MaxLength="15" />
+          <Property Name="NumeroProductosOferta" Type="bigint" />
+          <Property Name="TipoPlan" Type="varchar" MaxLength="100" />
+          <Property Name="IndicadorSubcampana" Type="bit" />
+          <Property Name="CantidadSAPDiferentes" Type="int" />
+          <Property Name="NumeroRepeticionesSAP" Type="int" />
+          <Property Name="IdTactica" Type="int" />
+          <Property Name="TipoOferta" Type="smallint" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="IdArgumento" Type="int" />
+        </EntityType>
+        <EntityType Name="Dominio">
+          <Key>
+            <PropertyRef Name="IdDominio" />
+          </Key>
+          <Property Name="IdDominio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionLarga" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DescripcionCorta" Type="varchar" MaxLength="100" />
+          <Property Name="IndicadorVigencia" Type="bit" Nullable="false" />
+          <Property Name="Nemonico" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CamposAdicionales" Type="tinyint" Nullable="false" />
+          <Property Name="DescripcionCampo1" Type="varchar" MaxLength="100" />
+          <Property Name="DescripcionCampo2" Type="varchar" MaxLength="100" />
+          <Property Name="DescripcionCampo3" Type="varchar" MaxLength="100" />
+          <Property Name="DescripcionCampo4" Type="varchar" MaxLength="100" />
+          <Property Name="DescripcionCampo5" Type="varchar" MaxLength="100" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EstadoArchivo">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Abreviatura" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Abreviatura" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Palanca">
+          <Key>
+            <PropertyRef Name="IdPalanca" />
+          </Key>
+          <Property Name="IdPalanca" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Abreviatura" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="IdParametro" />
+          </Key>
+          <Property Name="IdParametro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDominio" Type="int" Nullable="false" />
+          <Property Name="DescripcionLarga" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DescripcionCorta" Type="varchar" MaxLength="100" />
+          <Property Name="IndicadorVigencia" Type="bit" Nullable="false" />
+          <Property Name="Nemonico" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OrdenPresentacion" Type="smallint" Nullable="false" />
+          <Property Name="ValorCampo1" Type="varchar" MaxLength="100" />
+          <Property Name="ValorCampo2" Type="varchar" MaxLength="100" />
+          <Property Name="ValorCampo3" Type="varchar" MaxLength="100" />
+          <Property Name="ValorCampo4" Type="varchar" MaxLength="100" />
+          <Property Name="ValorCampo5" Type="varchar" MaxLength="100" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductoComparableAntiguo">
+          <Key>
+            <PropertyRef Name="IdPais" />
+            <PropertyRef Name="CUC" />
+          </Key>
+          <Property Name="IdPais" Type="tinyint" Nullable="false" />
+          <Property Name="CUC" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="SAP" Type="varchar" MaxLength="9" />
+          <Property Name="CUCAntiguo" Type="varchar" MaxLength="15" />
+          <Property Name="SAPAntiguo" Type="varchar" MaxLength="9" />
+          <Property Name="BPCSGenericoAntiguo" Type="varchar" MaxLength="9" />
+          <Property Name="BPCSTonoAntiguo" Type="varchar" MaxLength="9" />
+          <Property Name="DescripcionGenericoAntiguo" Type="varchar" MaxLength="500" />
+          <Property Name="DescripcionTonoAntiguo" Type="varchar" MaxLength="500" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TipoOferta">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+            <PropertyRef Name="IdTactica" />
+            <PropertyRef Name="IdPalanca" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" Nullable="false" />
+          <Property Name="IdTactica" Type="int" Nullable="false" />
+          <Property Name="IdPalanca" Type="smallint" Nullable="false" />
+          <Property Name="Valor" Type="smallint" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" Nullable="false" />
+          <Property Name="UsuarioModificacion" Type="varchar" MaxLength="100" />
+          <Property Name="FechaModificacion" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Archivo_CampanaPlaneacion">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Archivo">
+              <PropertyRef Name="IdCampanaPlaneacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Archivo_CampanaProceso">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Archivo">
+              <PropertyRef Name="IdCampanaProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Archivo_EstadoArchivo">
+          <End Role="EstadoArchivo" Type="Self.EstadoArchivo" Multiplicity="1" />
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoArchivo">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Archivo">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArchivoLog_Archivo">
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="1" />
+          <End Role="ArchivoLog" Type="Self.ArchivoLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archivo">
+              <PropertyRef Name="IdArchivo" />
+            </Principal>
+            <Dependent Role="ArchivoLog">
+              <PropertyRef Name="IdArchivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_CampanaPlaneacion">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdCampanaPlaneacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_CampanaProceso">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdCampanaProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_Palanca">
+          <End Role="Palanca" Type="Self.Palanca" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palanca">
+              <PropertyRef Name="IdPalanca" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdPalanca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametro_Dominio">
+          <End Role="Dominio" Type="Self.Dominio" Multiplicity="1" />
+          <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dominio">
+              <PropertyRef Name="IdDominio" />
+            </Principal>
+            <Dependent Role="Parametro">
+              <PropertyRef Name="IdDominio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoComparableAntiguo_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="ProductoComparableAntiguo" Type="Self.ProductoComparableAntiguo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="ProductoComparableAntiguo">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoOferta_Categoria">
+          <End Role="Parametro" Type="Self.Parametro" Multiplicity="1" />
+          <End Role="TipoOferta" Type="Self.TipoOferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parametro">
+              <PropertyRef Name="IdParametro" />
+            </Principal>
+            <Dependent Role="TipoOferta">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoOferta_Palanca">
+          <End Role="Palanca" Type="Self.Palanca" Multiplicity="1" />
+          <End Role="TipoOferta" Type="Self.TipoOferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palanca">
+              <PropertyRef Name="IdPalanca" />
+            </Principal>
+            <Dependent Role="TipoOferta">
+              <PropertyRef Name="IdPalanca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoOferta_Tactica">
+          <End Role="Parametro" Type="Self.Parametro" Multiplicity="1" />
+          <End Role="TipoOferta" Type="Self.TipoOferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parametro">
+              <PropertyRef Name="IdParametro" />
+            </Principal>
+            <Dependent Role="TipoOferta">
+              <PropertyRef Name="IdTactica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ePlanningDBModelStoreContainer">
+          <EntitySet Name="Archivo" EntityType="Self.Archivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ArchivoLog" EntityType="Self.ArchivoLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Campana" EntityType="Self.Campana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Consolidado" EntityType="Self.Consolidado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dominio" EntityType="Self.Dominio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EstadoArchivo" EntityType="Self.EstadoArchivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Palanca" EntityType="Self.Palanca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Parametro" EntityType="Self.Parametro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductoComparableAntiguo" EntityType="Self.ProductoComparableAntiguo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TipoOferta" EntityType="Self.TipoOferta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Archivo_CampanaPlaneacion" Association="Self.FK_Archivo_CampanaPlaneacion">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Archivo" EntitySet="Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Archivo_CampanaProceso" Association="Self.FK_Archivo_CampanaProceso">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Archivo" EntitySet="Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Archivo_EstadoArchivo" Association="Self.FK_Archivo_EstadoArchivo">
+            <End Role="EstadoArchivo" EntitySet="EstadoArchivo" />
+            <End Role="Archivo" EntitySet="Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArchivoLog_Archivo" Association="Self.FK_ArchivoLog_Archivo">
+            <End Role="Archivo" EntitySet="Archivo" />
+            <End Role="ArchivoLog" EntitySet="ArchivoLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_CampanaPlaneacion" Association="Self.FK_Consolidado_CampanaPlaneacion">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_CampanaProceso" Association="Self.FK_Consolidado_CampanaProceso">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_Pais" Association="Self.FK_Consolidado_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_Palanca" Association="Self.FK_Consolidado_Palanca">
+            <End Role="Palanca" EntitySet="Palanca" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametro_Dominio" Association="Self.FK_Parametro_Dominio">
+            <End Role="Dominio" EntitySet="Dominio" />
+            <End Role="Parametro" EntitySet="Parametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoComparableAntiguo_Pais" Association="Self.FK_ProductoComparableAntiguo_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="ProductoComparableAntiguo" EntitySet="ProductoComparableAntiguo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoOferta_Categoria" Association="Self.FK_TipoOferta_Categoria">
+            <End Role="Parametro" EntitySet="Parametro" />
+            <End Role="TipoOferta" EntitySet="TipoOferta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoOferta_Palanca" Association="Self.FK_TipoOferta_Palanca">
+            <End Role="Palanca" EntitySet="Palanca" />
+            <End Role="TipoOferta" EntitySet="TipoOferta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoOferta_Tactica" Association="Self.FK_TipoOferta_Tactica">
+            <End Role="Parametro" EntitySet="Parametro" />
+            <End Role="TipoOferta" EntitySet="TipoOferta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ePlanningDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Archivo">
+          <Key>
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreCargado" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreHistorico" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdPalanca" Type="Int16" Nullable="false" />
+          <Property Name="IdCampanaPlaneacion" Type="Int32" Nullable="false" />
+          <Property Name="IdCampanaProceso" Type="Int32" Nullable="false" />
+          <Property Name="NumeroEspacios" Type="Byte" />
+          <Property Name="UnidadesLimite" Type="Byte" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="FechaEstado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Campana" Relationship="Self.FK_Archivo_CampanaPlaneacion" FromRole="Archivo" ToRole="Campana" />
+          <NavigationProperty Name="Campana1" Relationship="Self.FK_Archivo_CampanaProceso" FromRole="Archivo" ToRole="Campana" />
+          <NavigationProperty Name="EstadoArchivo" Relationship="Self.FK_Archivo_EstadoArchivo" FromRole="Archivo" ToRole="EstadoArchivo" />
+          <NavigationProperty Name="ArchivoLog" Relationship="Self.FK_ArchivoLog_Archivo" FromRole="Archivo" ToRole="ArchivoLog" />
+        </EntityType>
+        <EntityType Name="ArchivoLog">
+          <Key>
+            <PropertyRef Name="IdArchivoLog" />
+            <PropertyRef Name="IdArchivo" />
+          </Key>
+          <Property Name="IdArchivoLog" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdArchivo" Type="Int64" Nullable="false" />
+          <Property Name="Observacion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Linea" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Archivo" Relationship="Self.FK_ArchivoLog_Archivo" FromRole="ArchivoLog" ToRole="Archivo" />
+        </EntityType>
+        <EntityType Name="Campana">
+          <Key>
+            <PropertyRef Name="IdCampana" />
+          </Key>
+          <Property Name="IdCampana" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Archivo" Relationship="Self.FK_Archivo_CampanaPlaneacion" FromRole="Campana" ToRole="Archivo" />
+          <NavigationProperty Name="Archivo1" Relationship="Self.FK_Archivo_CampanaProceso" FromRole="Campana" ToRole="Archivo" />
+          <NavigationProperty Name="Consolidado" Relationship="Self.FK_Consolidado_CampanaPlaneacion" FromRole="Campana" ToRole="Consolidado" />
+          <NavigationProperty Name="Consolidado1" Relationship="Self.FK_Consolidado_CampanaProceso" FromRole="Campana" ToRole="Consolidado" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abreviatura" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Consolidado">
+          <Key>
+            <PropertyRef Name="IdConsolidado" />
+          </Key>
+          <Property Name="IdConsolidado" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCampanaPlaneacion" Type="Int32" Nullable="false" />
+          <Property Name="IdCampanaProceso" Type="Int32" Nullable="false" />
+          <Property Name="IdPalanca" Type="Int16" Nullable="false" />
+          <Property Name="UnidadesLimite" Type="Byte" />
+          <Property Name="NumeroEspacios" Type="Byte" />
+          <Property Name="IdPais" Type="Byte" Nullable="false" />
+          <Property Name="CuentaOfertas" Type="Int32" Nullable="false" />
+          <Property Name="Binomio" Type="Boolean" />
+          <Property Name="CUVPadre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CUV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CUCAntiguo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SAPAntiguo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="BPCSGenericoAntiguo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="BPCSTonoAntiguo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionGenericoAntiguo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionTonoAntiguo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Lanzamiento" Type="Boolean" />
+          <Property Name="CUC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SAP" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BPCSGenerico" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BPCSTono" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IndicadorGratis" Type="Boolean" />
+          <Property Name="DescripcionSet" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DescripcionProducto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionCatalogo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CompuestaVariable" Type="Boolean" />
+          <Property Name="NumeroGrupo" Type="Int64" />
+          <Property Name="FactorCuadre" Type="Boolean" />
+          <Property Name="FlagTop" Type="Boolean" />
+          <Property Name="Tono" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Marca" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoSet" Type="Decimal" Precision="8" Scale="5" />
+          <Property Name="ReglaSet" Type="Decimal" Precision="8" Scale="5" />
+          <Property Name="GAPMNvsImpreso" Type="Int64" />
+          <Property Name="GAPUSDvsImpreso" Type="Int64" />
+          <Property Name="IndicadorCxC" Type="Boolean" />
+          <Property Name="FactoRepeticion" Type="Int64" />
+          <Property Name="POUnitarioMN" Type="Decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="POSetMN" Type="Decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="PNSetMN" Type="Decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="PNUnitarioMN" Type="Decimal" Precision="21" Scale="3" Nullable="false" />
+          <Property Name="Unidades" Type="Int64" />
+          <Property Name="P1" Type="Boolean" />
+          <Property Name="P2" Type="Boolean" />
+          <Property Name="P3" Type="Boolean" />
+          <Property Name="P4" Type="Boolean" />
+          <Property Name="P5" Type="Boolean" />
+          <Property Name="P6" Type="Boolean" />
+          <Property Name="P7" Type="Boolean" />
+          <Property Name="Comentario" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CODP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroProductosOferta" Type="Int64" />
+          <Property Name="TipoPlan" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IndicadorSubcampana" Type="Boolean" />
+          <Property Name="CantidadSAPDiferentes" Type="Int32" />
+          <Property Name="NumeroRepeticionesSAP" Type="Int32" />
+          <Property Name="IdTactica" Type="Int32" />
+          <Property Name="TipoOferta" Type="Int16" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="IdArgumento" Type="Int32" />
+          <NavigationProperty Name="Campana" Relationship="Self.FK_Consolidado_CampanaPlaneacion" FromRole="Consolidado" ToRole="Campana" />
+          <NavigationProperty Name="Campana1" Relationship="Self.FK_Consolidado_CampanaProceso" FromRole="Consolidado" ToRole="Campana" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK_Consolidado_Pais" FromRole="Consolidado" ToRole="Pais" />
+          <NavigationProperty Name="Palanca" Relationship="Self.FK_Consolidado_Palanca" FromRole="Consolidado" ToRole="Palanca" />
+        </EntityType>
+        <EntityType Name="Dominio">
+          <Key>
+            <PropertyRef Name="IdDominio" />
+          </Key>
+          <Property Name="IdDominio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionLarga" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DescripcionCorta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IndicadorVigencia" Type="Boolean" Nullable="false" />
+          <Property Name="Nemonico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CamposAdicionales" Type="Byte" Nullable="false" />
+          <Property Name="DescripcionCampo1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionCampo2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionCampo3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionCampo4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionCampo5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Parametro" Relationship="Self.FK_Parametro_Dominio" FromRole="Dominio" ToRole="Parametro" />
+        </EntityType>
+        <EntityType Name="EstadoArchivo">
+          <Key>
+            <PropertyRef Name="IdEstado" />
+          </Key>
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Archivo" Relationship="Self.FK_Archivo_EstadoArchivo" FromRole="EstadoArchivo" ToRole="Archivo" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="IdMarca" />
+          </Key>
+          <Property Name="IdMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abreviatura" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="IdPais" />
+          </Key>
+          <Property Name="IdPais" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abreviatura" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Consolidado" Relationship="Self.FK_Consolidado_Pais" FromRole="Pais" ToRole="Consolidado" />
+          <NavigationProperty Name="ProductoComparableAntiguo" Relationship="Self.FK_ProductoComparableAntiguo_Pais" FromRole="Pais" ToRole="ProductoComparableAntiguo" />
+        </EntityType>
+        <EntityType Name="Palanca">
+          <Key>
+            <PropertyRef Name="IdPalanca" />
+          </Key>
+          <Property Name="IdPalanca" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Abreviatura" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Consolidado" Relationship="Self.FK_Consolidado_Palanca" FromRole="Palanca" ToRole="Consolidado" />
+          <NavigationProperty Name="TipoOferta" Relationship="Self.FK_TipoOferta_Palanca" FromRole="Palanca" ToRole="TipoOferta" />
+        </EntityType>
+        <EntityType Name="Parametro">
+          <Key>
+            <PropertyRef Name="IdParametro" />
+          </Key>
+          <Property Name="IdParametro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDominio" Type="Int32" Nullable="false" />
+          <Property Name="DescripcionLarga" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DescripcionCorta" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IndicadorVigencia" Type="Boolean" Nullable="false" />
+          <Property Name="Nemonico" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrdenPresentacion" Type="Int16" Nullable="false" />
+          <Property Name="ValorCampo1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ValorCampo2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ValorCampo3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ValorCampo4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ValorCampo5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Dominio" Relationship="Self.FK_Parametro_Dominio" FromRole="Parametro" ToRole="Dominio" />
+          <NavigationProperty Name="TipoOferta" Relationship="Self.FK_TipoOferta_Categoria" FromRole="Parametro" ToRole="TipoOferta" />
+          <NavigationProperty Name="TipoOferta1" Relationship="Self.FK_TipoOferta_Tactica" FromRole="Parametro" ToRole="TipoOferta" />
+        </EntityType>
+        <EntityType Name="ProductoComparableAntiguo">
+          <Key>
+            <PropertyRef Name="IdPais" />
+            <PropertyRef Name="CUC" />
+          </Key>
+          <Property Name="IdPais" Type="Byte" Nullable="false" />
+          <Property Name="CUC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SAP" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="CUCAntiguo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SAPAntiguo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="BPCSGenericoAntiguo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="BPCSTonoAntiguo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionGenericoAntiguo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DescripcionTonoAntiguo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK_ProductoComparableAntiguo_Pais" FromRole="ProductoComparableAntiguo" ToRole="Pais" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TipoOferta">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+            <PropertyRef Name="IdTactica" />
+            <PropertyRef Name="IdPalanca" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+          <Property Name="IdTactica" Type="Int32" Nullable="false" />
+          <Property Name="IdPalanca" Type="Int16" Nullable="false" />
+          <Property Name="Valor" Type="Int16" Nullable="false" />
+          <Property Name="UsuarioCreacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UsuarioModificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Palanca" Relationship="Self.FK_TipoOferta_Palanca" FromRole="TipoOferta" ToRole="Palanca" />
+          <NavigationProperty Name="Parametro" Relationship="Self.FK_TipoOferta_Categoria" FromRole="TipoOferta" ToRole="Parametro" />
+          <NavigationProperty Name="Parametro1" Relationship="Self.FK_TipoOferta_Tactica" FromRole="TipoOferta" ToRole="Parametro" />
+        </EntityType>
+        <Association Name="FK_Archivo_CampanaPlaneacion">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Archivo">
+              <PropertyRef Name="IdCampanaPlaneacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Archivo_CampanaProceso">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Archivo">
+              <PropertyRef Name="IdCampanaProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Archivo_EstadoArchivo">
+          <End Role="EstadoArchivo" Type="Self.EstadoArchivo" Multiplicity="1" />
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EstadoArchivo">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="Archivo">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArchivoLog_Archivo">
+          <End Role="Archivo" Type="Self.Archivo" Multiplicity="1" />
+          <End Role="ArchivoLog" Type="Self.ArchivoLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Archivo">
+              <PropertyRef Name="IdArchivo" />
+            </Principal>
+            <Dependent Role="ArchivoLog">
+              <PropertyRef Name="IdArchivo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_CampanaPlaneacion">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdCampanaPlaneacion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_CampanaProceso">
+          <End Role="Campana" Type="Self.Campana" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campana">
+              <PropertyRef Name="IdCampana" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdCampanaProceso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Consolidado_Palanca">
+          <End Role="Palanca" Type="Self.Palanca" Multiplicity="1" />
+          <End Role="Consolidado" Type="Self.Consolidado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palanca">
+              <PropertyRef Name="IdPalanca" />
+            </Principal>
+            <Dependent Role="Consolidado">
+              <PropertyRef Name="IdPalanca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Parametro_Dominio">
+          <End Role="Dominio" Type="Self.Dominio" Multiplicity="1" />
+          <End Role="Parametro" Type="Self.Parametro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dominio">
+              <PropertyRef Name="IdDominio" />
+            </Principal>
+            <Dependent Role="Parametro">
+              <PropertyRef Name="IdDominio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductoComparableAntiguo_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="ProductoComparableAntiguo" Type="Self.ProductoComparableAntiguo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="IdPais" />
+            </Principal>
+            <Dependent Role="ProductoComparableAntiguo">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoOferta_Palanca">
+          <End Role="Palanca" Type="Self.Palanca" Multiplicity="1" />
+          <End Role="TipoOferta" Type="Self.TipoOferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Palanca">
+              <PropertyRef Name="IdPalanca" />
+            </Principal>
+            <Dependent Role="TipoOferta">
+              <PropertyRef Name="IdPalanca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoOferta_Categoria">
+          <End Role="Parametro" Type="Self.Parametro" Multiplicity="1" />
+          <End Role="TipoOferta" Type="Self.TipoOferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parametro">
+              <PropertyRef Name="IdParametro" />
+            </Principal>
+            <Dependent Role="TipoOferta">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TipoOferta_Tactica">
+          <End Role="Parametro" Type="Self.Parametro" Multiplicity="1" />
+          <End Role="TipoOferta" Type="Self.TipoOferta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Parametro">
+              <PropertyRef Name="IdParametro" />
+            </Principal>
+            <Dependent Role="TipoOferta">
+              <PropertyRef Name="IdTactica" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ePlanningDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Archivo" EntityType="Self.Archivo" />
+          <EntitySet Name="ArchivoLog" EntityType="Self.ArchivoLog" />
+          <EntitySet Name="Campana" EntityType="Self.Campana" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Consolidado" EntityType="Self.Consolidado" />
+          <EntitySet Name="Dominio" EntityType="Self.Dominio" />
+          <EntitySet Name="EstadoArchivo" EntityType="Self.EstadoArchivo" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Palanca" EntityType="Self.Palanca" />
+          <EntitySet Name="Parametro" EntityType="Self.Parametro" />
+          <EntitySet Name="ProductoComparableAntiguo" EntityType="Self.ProductoComparableAntiguo" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TipoOferta" EntityType="Self.TipoOferta" />
+          <AssociationSet Name="FK_Archivo_CampanaPlaneacion" Association="Self.FK_Archivo_CampanaPlaneacion">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Archivo" EntitySet="Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Archivo_CampanaProceso" Association="Self.FK_Archivo_CampanaProceso">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Archivo" EntitySet="Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Archivo_EstadoArchivo" Association="Self.FK_Archivo_EstadoArchivo">
+            <End Role="EstadoArchivo" EntitySet="EstadoArchivo" />
+            <End Role="Archivo" EntitySet="Archivo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArchivoLog_Archivo" Association="Self.FK_ArchivoLog_Archivo">
+            <End Role="Archivo" EntitySet="Archivo" />
+            <End Role="ArchivoLog" EntitySet="ArchivoLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_CampanaPlaneacion" Association="Self.FK_Consolidado_CampanaPlaneacion">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_CampanaProceso" Association="Self.FK_Consolidado_CampanaProceso">
+            <End Role="Campana" EntitySet="Campana" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_Pais" Association="Self.FK_Consolidado_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Consolidado_Palanca" Association="Self.FK_Consolidado_Palanca">
+            <End Role="Palanca" EntitySet="Palanca" />
+            <End Role="Consolidado" EntitySet="Consolidado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parametro_Dominio" Association="Self.FK_Parametro_Dominio">
+            <End Role="Dominio" EntitySet="Dominio" />
+            <End Role="Parametro" EntitySet="Parametro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductoComparableAntiguo_Pais" Association="Self.FK_ProductoComparableAntiguo_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="ProductoComparableAntiguo" EntitySet="ProductoComparableAntiguo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoOferta_Palanca" Association="Self.FK_TipoOferta_Palanca">
+            <End Role="Palanca" EntitySet="Palanca" />
+            <End Role="TipoOferta" EntitySet="TipoOferta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoOferta_Categoria" Association="Self.FK_TipoOferta_Categoria">
+            <End Role="Parametro" EntitySet="Parametro" />
+            <End Role="TipoOferta" EntitySet="TipoOferta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TipoOferta_Tactica" Association="Self.FK_TipoOferta_Tactica">
+            <End Role="Parametro" EntitySet="Parametro" />
+            <End Role="TipoOferta" EntitySet="TipoOferta" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ePlanningDBModelStoreContainer" CdmEntityContainer="ePlanningDBEntities">
+          <EntitySetMapping Name="Archivo">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Archivo">
+              <MappingFragment StoreEntitySet="Archivo">
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+                <ScalarProperty Name="NombreCargado" ColumnName="NombreCargado" />
+                <ScalarProperty Name="NombreHistorico" ColumnName="NombreHistorico" />
+                <ScalarProperty Name="IdPalanca" ColumnName="IdPalanca" />
+                <ScalarProperty Name="IdCampanaPlaneacion" ColumnName="IdCampanaPlaneacion" />
+                <ScalarProperty Name="IdCampanaProceso" ColumnName="IdCampanaProceso" />
+                <ScalarProperty Name="NumeroEspacios" ColumnName="NumeroEspacios" />
+                <ScalarProperty Name="UnidadesLimite" ColumnName="UnidadesLimite" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="FechaEstado" ColumnName="FechaEstado" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ArchivoLog">
+            <EntityTypeMapping TypeName="ePlanningDBModel.ArchivoLog">
+              <MappingFragment StoreEntitySet="ArchivoLog">
+                <ScalarProperty Name="IdArchivoLog" ColumnName="IdArchivoLog" />
+                <ScalarProperty Name="IdArchivo" ColumnName="IdArchivo" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Linea" ColumnName="Linea" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Campana">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Campana">
+              <MappingFragment StoreEntitySet="Campana">
+                <ScalarProperty Name="IdCampana" ColumnName="IdCampana" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Consolidado">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Consolidado">
+              <MappingFragment StoreEntitySet="Consolidado">
+                <ScalarProperty Name="IdConsolidado" ColumnName="IdConsolidado" />
+                <ScalarProperty Name="IdCampanaPlaneacion" ColumnName="IdCampanaPlaneacion" />
+                <ScalarProperty Name="IdCampanaProceso" ColumnName="IdCampanaProceso" />
+                <ScalarProperty Name="IdPalanca" ColumnName="IdPalanca" />
+                <ScalarProperty Name="UnidadesLimite" ColumnName="UnidadesLimite" />
+                <ScalarProperty Name="NumeroEspacios" ColumnName="NumeroEspacios" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="CuentaOfertas" ColumnName="CuentaOfertas" />
+                <ScalarProperty Name="Binomio" ColumnName="Binomio" />
+                <ScalarProperty Name="CUVPadre" ColumnName="CUVPadre" />
+                <ScalarProperty Name="CUV" ColumnName="CUV" />
+                <ScalarProperty Name="CUCAntiguo" ColumnName="CUCAntiguo" />
+                <ScalarProperty Name="SAPAntiguo" ColumnName="SAPAntiguo" />
+                <ScalarProperty Name="BPCSGenericoAntiguo" ColumnName="BPCSGenericoAntiguo" />
+                <ScalarProperty Name="BPCSTonoAntiguo" ColumnName="BPCSTonoAntiguo" />
+                <ScalarProperty Name="DescripcionGenericoAntiguo" ColumnName="DescripcionGenericoAntiguo" />
+                <ScalarProperty Name="DescripcionTonoAntiguo" ColumnName="DescripcionTonoAntiguo" />
+                <ScalarProperty Name="Lanzamiento" ColumnName="Lanzamiento" />
+                <ScalarProperty Name="CUC" ColumnName="CUC" />
+                <ScalarProperty Name="SAP" ColumnName="SAP" />
+                <ScalarProperty Name="BPCSGenerico" ColumnName="BPCSGenerico" />
+                <ScalarProperty Name="BPCSTono" ColumnName="BPCSTono" />
+                <ScalarProperty Name="IndicadorGratis" ColumnName="IndicadorGratis" />
+                <ScalarProperty Name="DescripcionSet" ColumnName="DescripcionSet" />
+                <ScalarProperty Name="DescripcionProducto" ColumnName="DescripcionProducto" />
+                <ScalarProperty Name="DescripcionCatalogo" ColumnName="DescripcionCatalogo" />
+                <ScalarProperty Name="CompuestaVariable" ColumnName="CompuestaVariable" />
+                <ScalarProperty Name="NumeroGrupo" ColumnName="NumeroGrupo" />
+                <ScalarProperty Name="FactorCuadre" ColumnName="FactorCuadre" />
+                <ScalarProperty Name="FlagTop" ColumnName="FlagTop" />
+                <ScalarProperty Name="Tono" ColumnName="Tono" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="DescuentoSet" ColumnName="DescuentoSet" />
+                <ScalarProperty Name="ReglaSet" ColumnName="ReglaSet" />
+                <ScalarProperty Name="GAPMNvsImpreso" ColumnName="GAPMNvsImpreso" />
+                <ScalarProperty Name="GAPUSDvsImpreso" ColumnName="GAPUSDvsImpreso" />
+                <ScalarProperty Name="IndicadorCxC" ColumnName="IndicadorCxC" />
+                <ScalarProperty Name="FactoRepeticion" ColumnName="FactoRepeticion" />
+                <ScalarProperty Name="POUnitarioMN" ColumnName="POUnitarioMN" />
+                <ScalarProperty Name="POSetMN" ColumnName="POSetMN" />
+                <ScalarProperty Name="PNSetMN" ColumnName="PNSetMN" />
+                <ScalarProperty Name="PNUnitarioMN" ColumnName="PNUnitarioMN" />
+                <ScalarProperty Name="Unidades" ColumnName="Unidades" />
+                <ScalarProperty Name="P1" ColumnName="P1" />
+                <ScalarProperty Name="P2" ColumnName="P2" />
+                <ScalarProperty Name="P3" ColumnName="P3" />
+                <ScalarProperty Name="P4" ColumnName="P4" />
+                <ScalarProperty Name="P5" ColumnName="P5" />
+                <ScalarProperty Name="P6" ColumnName="P6" />
+                <ScalarProperty Name="P7" ColumnName="P7" />
+                <ScalarProperty Name="Comentario" ColumnName="Comentario" />
+                <ScalarProperty Name="CODP" ColumnName="CODP" />
+                <ScalarProperty Name="NumeroProductosOferta" ColumnName="NumeroProductosOferta" />
+                <ScalarProperty Name="TipoPlan" ColumnName="TipoPlan" />
+                <ScalarProperty Name="IndicadorSubcampana" ColumnName="IndicadorSubcampana" />
+                <ScalarProperty Name="CantidadSAPDiferentes" ColumnName="CantidadSAPDiferentes" />
+                <ScalarProperty Name="NumeroRepeticionesSAP" ColumnName="NumeroRepeticionesSAP" />
+                <ScalarProperty Name="IdTactica" ColumnName="IdTactica" />
+                <ScalarProperty Name="TipoOferta" ColumnName="TipoOferta" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdArgumento" ColumnName="IdArgumento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dominio">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Dominio">
+              <MappingFragment StoreEntitySet="Dominio">
+                <ScalarProperty Name="IdDominio" ColumnName="IdDominio" />
+                <ScalarProperty Name="DescripcionLarga" ColumnName="DescripcionLarga" />
+                <ScalarProperty Name="DescripcionCorta" ColumnName="DescripcionCorta" />
+                <ScalarProperty Name="IndicadorVigencia" ColumnName="IndicadorVigencia" />
+                <ScalarProperty Name="Nemonico" ColumnName="Nemonico" />
+                <ScalarProperty Name="CamposAdicionales" ColumnName="CamposAdicionales" />
+                <ScalarProperty Name="DescripcionCampo1" ColumnName="DescripcionCampo1" />
+                <ScalarProperty Name="DescripcionCampo2" ColumnName="DescripcionCampo2" />
+                <ScalarProperty Name="DescripcionCampo3" ColumnName="DescripcionCampo3" />
+                <ScalarProperty Name="DescripcionCampo4" ColumnName="DescripcionCampo4" />
+                <ScalarProperty Name="DescripcionCampo5" ColumnName="DescripcionCampo5" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EstadoArchivo">
+            <EntityTypeMapping TypeName="ePlanningDBModel.EstadoArchivo">
+              <MappingFragment StoreEntitySet="EstadoArchivo">
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marca">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="IdMarca" ColumnName="IdMarca" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Palanca">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Palanca">
+              <MappingFragment StoreEntitySet="Palanca">
+                <ScalarProperty Name="IdPalanca" ColumnName="IdPalanca" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Abreviatura" ColumnName="Abreviatura" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Parametro">
+            <EntityTypeMapping TypeName="ePlanningDBModel.Parametro">
+              <MappingFragment StoreEntitySet="Parametro">
+                <ScalarProperty Name="IdParametro" ColumnName="IdParametro" />
+                <ScalarProperty Name="IdDominio" ColumnName="IdDominio" />
+                <ScalarProperty Name="DescripcionLarga" ColumnName="DescripcionLarga" />
+                <ScalarProperty Name="DescripcionCorta" ColumnName="DescripcionCorta" />
+                <ScalarProperty Name="IndicadorVigencia" ColumnName="IndicadorVigencia" />
+                <ScalarProperty Name="Nemonico" ColumnName="Nemonico" />
+                <ScalarProperty Name="OrdenPresentacion" ColumnName="OrdenPresentacion" />
+                <ScalarProperty Name="ValorCampo1" ColumnName="ValorCampo1" />
+                <ScalarProperty Name="ValorCampo2" ColumnName="ValorCampo2" />
+                <ScalarProperty Name="ValorCampo3" ColumnName="ValorCampo3" />
+                <ScalarProperty Name="ValorCampo4" ColumnName="ValorCampo4" />
+                <ScalarProperty Name="ValorCampo5" ColumnName="ValorCampo5" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductoComparableAntiguo">
+            <EntityTypeMapping TypeName="ePlanningDBModel.ProductoComparableAntiguo">
+              <MappingFragment StoreEntitySet="ProductoComparableAntiguo">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="CUC" ColumnName="CUC" />
+                <ScalarProperty Name="SAP" ColumnName="SAP" />
+                <ScalarProperty Name="CUCAntiguo" ColumnName="CUCAntiguo" />
+                <ScalarProperty Name="SAPAntiguo" ColumnName="SAPAntiguo" />
+                <ScalarProperty Name="BPCSGenericoAntiguo" ColumnName="BPCSGenericoAntiguo" />
+                <ScalarProperty Name="BPCSTonoAntiguo" ColumnName="BPCSTonoAntiguo" />
+                <ScalarProperty Name="DescripcionGenericoAntiguo" ColumnName="DescripcionGenericoAntiguo" />
+                <ScalarProperty Name="DescripcionTonoAntiguo" ColumnName="DescripcionTonoAntiguo" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ePlanningDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TipoOferta">
+            <EntityTypeMapping TypeName="ePlanningDBModel.TipoOferta">
+              <MappingFragment StoreEntitySet="TipoOferta">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="IdTactica" ColumnName="IdTactica" />
+                <ScalarProperty Name="IdPalanca" ColumnName="IdPalanca" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="UsuarioCreacion" ColumnName="UsuarioCreacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="UsuarioModificacion" ColumnName="UsuarioModificacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -5,7 +5,7 @@ namespace DXCTechnology.Belcorp.ePlanning.Web
 {
     public class BundleConfig
     {
-        // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
+        // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
@@ -14,8 +14,11 @@ namespace DXCTechnology.Belcorp.ePlanning.Web
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
-            // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información. De este modo, estará
-            // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
+            bundles.Add(new ScriptBundle("~/bundles/unobtrusiveajax").Include(
+                        "~/Scripts/jquery.unobtrusive*"));
+
+            // Use the development version of Modernizr to develop with and learn from. Then, when you're
+            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
@@ -32,12 +35,12 @@ namespace DXCTechnology.Belcorp.ePlanning.Web
                         "~/Scripts/DataTables/jquery.dataTables.min.js",
                         "~/Scripts/DataTables/dataTables.bootstrap.js",
                         "~/Scripts/DataTables/dataTables.colReorder.js",
-                        "~/Scripts/DataTables/dataTables.colReorder.min.js")); 
+                        "~/Scripts/DataTables/dataTables.colReorder.min.js"));
 
             // jquery datatables css file
             bundles.Add(new StyleBundle("~/Content/datatables").Include(
-                      "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/DataTables/css/dataTables.bootstrap.css"));
+
 
 
         }

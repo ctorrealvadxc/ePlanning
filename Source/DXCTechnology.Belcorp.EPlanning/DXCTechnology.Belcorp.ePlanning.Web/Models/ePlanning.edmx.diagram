@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="36400dad1f9645c7b744b971361003dc" Name="Diagram1">
+        <EntityTypeShape EntityType="ePlanningDBModel.Archivo" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.ArchivoLog" Width="1.5" PointX="5.25" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Campana" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Categoria" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Consolidado" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Dominio" Width="1.5" PointX="4.5" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.EstadoArchivo" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Marca" Width="1.5" PointX="2.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Pais" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Palanca" Width="1.5" PointX="3.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.Parametro" Width="1.5" PointX="6.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.ProductoComparableAntiguo" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ePlanningDBModel.TipoOferta" Width="1.5" PointX="9" PointY="16.5" IsExpanded="true" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Archivo_CampanaPlaneacion" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Archivo_CampanaProceso" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Archivo_EstadoArchivo" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_ArchivoLog_Archivo" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Consolidado_CampanaPlaneacion" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Consolidado_CampanaProceso" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Consolidado_Pais" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Consolidado_Palanca" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_Parametro_Dominio" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_ProductoComparableAntiguo_Pais" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_TipoOferta_Palanca" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_TipoOferta_Categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="ePlanningDBModel.FK_TipoOferta_Tactica" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,29 +1,23 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ePlanning</title>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+<body style="padding-top: 0px;">
+    <div style="background-color: #812990" >        
+        <div class="container">            
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("ePlanning", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("ePlanning", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", @style = "color:white" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Carga", "Carga", "Home")</li>
-                    <li>@Html.ActionLink("Consulta", "Index", "Consolidado")</li>
-                    @*<li>@Html.ActionLink("Test 3", "Test3", "Home")</li>*@                   
+                    <li >@Html.ActionLink("Carga", "Carga", "Home",null, new { @style = "color:white" })</li>
+                    <li >@Html.ActionLink("Consulta", "Index", "Consolidado", null, new { @style = "color:white" })</li>
                 </ul>
             </div>
         </div>

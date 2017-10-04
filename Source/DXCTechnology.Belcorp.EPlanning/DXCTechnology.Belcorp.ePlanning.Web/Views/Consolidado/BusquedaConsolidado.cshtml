@@ -1,0 +1,80 @@
+﻿@model GridAjaxCRUDMVC.Models.BusquedaConsolidado
+@{
+    Layout = null;
+}
+
+<div class="modal fade" id="advancedSearchModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Criterios de Búsqueda</h4>
+            </div>
+            @using (Html.BeginForm("Get", "Consolidado", FormMethod.Get, new { id = "frmAdvancedSearch", @class = "form-horizontal", role = "form" }))
+            {
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <hr />
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdPalanca, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                <div class="dropdown">
+                                    @Html.DropDownListFor(model => model.IdPalanca, Model.PalancaList, "-Seleccione-", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdCampana, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                <div class="dropdown">
+                                    @Html.DropDownListFor(model => model.IdCampana, Model.CampanaList, "-Seleccione-", new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.IdPais, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                    @Html.DropDownListFor(model => model.IdPais, Model.PaisList, "-Seleccione-", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CuentaOfertas, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CuentaOfertas, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TipoOfertaList, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => model.IdTipoOferta, Model.TipoOfertaList, "-Seleccione-", new { @class = "form-control" })
+                            </div>
+                        </div>           
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CUC, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CUC, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SAP, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.SAP, new { htmlAttributes = new { @class = "form-control" } })
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnPerformAdvancedSearch" type="button" class="btn btn-default btn-success" data-dismiss="modal">Buscar</button>
+                    <button id="btnCancel" type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

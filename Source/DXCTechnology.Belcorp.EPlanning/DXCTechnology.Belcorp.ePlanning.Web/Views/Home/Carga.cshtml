@@ -1,5 +1,4 @@
-﻿@model DXCTechnology.Belcorp.ePlanning.Web.Models.Carga
-
+﻿@model DXCTechnology.Belcorp.ePlanning.Models.Carga
 
 
 @using (Html.BeginForm("AddEmployee", "home", FormMethod.Post, new { @id = "formid", enctype = "multipart/form-data" }))
@@ -16,7 +15,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Palanca, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Palanca, DXCTechnology.Belcorp.ePlanning.Web.Controllers.HomeController.GetPalanca(), new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.Palanca, DXCTechnology.Belcorp.ePlanning.Controllers.HomeController.GetPalanca(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Palanca, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -24,7 +23,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CampanaPlaneacion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CampanaPlaneacion, DXCTechnology.Belcorp.ePlanning.Web.Controllers.HomeController.GetCampanaPlaneamiento(), new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CampanaPlaneacion, DXCTechnology.Belcorp.ePlanning.Controllers.HomeController.GetCampanaPlaneamiento(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CampanaPlaneacion, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -32,7 +31,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.CampanaProceso, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.CampanaProceso, DXCTechnology.Belcorp.ePlanning.Web.Controllers.HomeController.GetCampanaProceso(), new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CampanaProceso, DXCTechnology.Belcorp.ePlanning.Controllers.HomeController.GetCampanaProceso(), new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.CampanaProceso, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -57,13 +56,15 @@
             @Html.LabelFor(model => model.Archivo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" name="file" /><br />
-                
-                
-                <button type="submit" class="btn btn-default">Procesar Información</button><br /> 
-                
+
+
+                <button type="submit" class="btn btn-default">Procesar Información</button><br />
+
             </div>
         </div>
-        @ViewData["Message"]
+        
+
+        @Html.Raw(@ViewData["Message"])
     </div>
 }
 
@@ -75,5 +76,6 @@
 <style>
 
 </style>
+
 
 

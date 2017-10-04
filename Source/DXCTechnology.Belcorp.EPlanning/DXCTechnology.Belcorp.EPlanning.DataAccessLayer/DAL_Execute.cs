@@ -4,8 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using log4net;
-using DXCTechnology.Belcorp.ePlanning.Utils.Extensions;
+using DXCTechnology.Belcorp.ePlanning.SharedLibraries.Extensions;
 using Microsoft.ApplicationBlocks.Data;
 
 namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
@@ -572,12 +571,14 @@ namespace DXCTechnology.Belcorp.ePlanning.DataAccessLayer
         }
         #endregion
 
-        public _DataRuntimeException controlarExcepcion(string x_mensaje, Exception x_excepcion)
+        //public _DataRuntimeException controlarExcepcion(string x_mensaje, Exception x_excepcion)
+        public Exception controlarExcepcion(string x_mensaje, Exception x_excepcion)
         {
-            Ejecutado = false;
-            ILog oILog = LogManager.GetLogger(this.GetType());
-            oILog.Error(x_excepcion.Message, x_excepcion);
-            _DataRuntimeException drex = new _DataRuntimeException(x_mensaje, x_excepcion);
+            //Ejecutado = false;
+            //ILog oILog = LogManager.GetLogger(this.GetType());
+            //oILog.Error(x_excepcion.Message, x_excepcion);
+            //_DataRuntimeException drex = new _DataRuntimeException(x_mensaje, x_excepcion);
+            Exception drex = new Exception(x_mensaje, x_excepcion);
             return drex;
         }
     }
